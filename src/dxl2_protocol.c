@@ -1,0 +1,274 @@
+/*******************************************************************************
+ * DXL2-C: DYNAMIXEL Protocol 2.0 Implementation
+ *
+ * Project:     DXL2-C - Hardware-Agnostic DYNAMIXEL Protocol 2.0 Library
+ * Description: Protocol 2.0 codec: CRC-16, incremental parser and encoder
+ *              with byte stuffing
+ *
+ * Author:      Anton Vynohradov
+ * Email:       avynohradov@systemfromscratch.com
+ *
+ * License:     Apache License 2.0
+ *
+ * Copyright (c) 2026 Anton Vynohradov
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ ******************************************************************************/
+
+/* ==============================================================================
+ * INCLUDES
+ * =============================================================================*/
+
+#include <stdbool.h>
+#include <string.h>
+
+#include "dxl2_protocol.h"
+
+/* ==============================================================================
+ * DEFINES & MACROS
+ * =============================================================================*/
+
+#define DXL2_HEADER_SIZE 4U
+#define DXL2_MIN_LENGTH 3U
+#define DXL2_LENGTH_OFFSET 5U
+#define DXL2_BODY_OFFSET 7U
+#define DXL2_CRC_SIZE 2U
+
+/* ==============================================================================
+ * PRIVATE TYPE DEFINITIONS
+ * =============================================================================*/
+
+/* ==============================================================================
+ * PRIVATE VARIABLES (static)
+ * =============================================================================*/
+
+/** DYNAMIXEL Protocol 2.0 packet header. */
+static const uint8_t dxl2_header[DXL2_HEADER_SIZE] = {0xFF, 0xFF, 0xFD, 0x00};
+
+/* ==============================================================================
+ * PRIVATE FUNCTION DECLARATIONS (static)
+ * =============================================================================*/
+
+/**
+ * @brief   Discard the parser's current partial packet.
+ * @param   parser - Parser state to reset
+ */
+static void dxl2_parser_reset(struct dxl2_parser* parser);
+
+/**
+ * @brief   Validate CRC and decode a complete wire packet.
+ * @param   parser - Parser containing the complete wire packet
+ * @param   packet - Receives the decoded packet on success
+ * @param   total_length - Complete wire-packet length, including header and CRC
+ * @return  1 on success, DXL2_PARSE_ERROR on CRC mismatch, invalid stuffing or payload
+ */
+static int dxl2_decode_packet(const struct dxl2_parser* parser, struct dxl2_packet* packet,
+                              size_t total_length);
+
+/* ==============================================================================
+ * PRIVATE FUNCTION IMPLEMENTATIONS
+ * =============================================================================*/
+
+static void dxl2_parser_reset(struct dxl2_parser* parser)
+{
+    parser->length = 0U;
+}
+
+/* CRC is checked over the stuffed wire bytes before byte stuffing is removed. */
+static int dxl2_decode_packet(const struct dxl2_parser* parser, struct dxl2_packet* packet,
+                              size_t total_length)
+{
+    const size_t crc_offset = total_length - DXL2_CRC_SIZE;
+    const uint16_t expected_crc = dxl2_crc16(parser->buffer, crc_offset);
+    const uint16_t received_crc =
+        (uint16_t) parser->buffer[crc_offset] | ((uint16_t) parser->buffer[crc_offset + 1U] << 8);
+    bool has_instruction = false;
+    size_t offset = DXL2_BODY_OFFSET;
+
+    if (expected_crc != received_crc)
+    {
+        return DXL2_PARSE_ERROR;
+    }
+
+    packet->id = parser->buffer[4];
+    packet->parameter_length = 0U;
+
+    while (offset < crc_offset)
+    {
+        uint8_t decoded[3];
+        size_t decoded_count = 1U;
+
+        decoded[0] = parser->buffer[offset];
+        if (offset + 2U < crc_offset && decoded[0] == 0xFFU && parser->buffer[offset + 1U] == 0xFFU
+            && parser->buffer[offset + 2U] == 0xFDU)
+        {
+            if (offset + 3U >= crc_offset || parser->buffer[offset + 3U] != 0xFDU)
+            {
+                return DXL2_PARSE_ERROR;
+            }
+            decoded[1] = 0xFFU;
+            decoded[2] = 0xFDU;
+            decoded_count = 3U;
+            offset += 4U;
+        }
+        else
+        {
+            offset++;
+        }
+
+        for (size_t i = 0U; i < decoded_count; ++i)
+        {
+            if (!has_instruction)
+            {
+                packet->instruction = decoded[i];
+                has_instruction = true;
+            }
+            else
+            {
+                if (packet->parameter_length >= DXL2_MAX_PARAMETER_SIZE)
+                {
+                    return DXL2_PARSE_ERROR;
+                }
+                packet->parameters[packet->parameter_length++] = decoded[i];
+            }
+        }
+    }
+
+    return has_instruction ? 1 : DXL2_PARSE_ERROR;
+}
+
+/* ==============================================================================
+ * PUBLIC FUNCTION IMPLEMENTATIONS
+ * =============================================================================*/
+
+uint16_t dxl2_crc16(const uint8_t* data, size_t length)
+{
+    uint16_t crc = 0U;
+
+    for (size_t i = 0U; i < length; ++i)
+    {
+        crc ^= (uint16_t) data[i] << 8;
+        for (uint8_t bit = 0U; bit < 8U; ++bit)
+        {
+            crc = (crc & 0x8000U) != 0U ? (uint16_t) ((crc << 1) ^ 0x8005U) : (uint16_t) (crc << 1);
+        }
+    }
+
+    return crc;
+}
+
+void dxl2_parser_init(struct dxl2_parser* parser)
+{
+    if (parser != NULL)
+    {
+        dxl2_parser_reset(parser);
+    }
+}
+
+int dxl2_parser_feed(struct dxl2_parser* parser, uint8_t byte, struct dxl2_packet* packet)
+{
+    uint16_t length_field;
+    size_t total_length;
+    int result;
+
+    if (parser == NULL || packet == NULL || parser->length >= DXL2_MAX_PACKET_SIZE)
+    {
+        if (parser != NULL)
+        {
+            dxl2_parser_reset(parser);
+        }
+        return DXL2_PARSE_ERROR;
+    }
+
+    parser->buffer[parser->length++] = byte;
+    while (parser->length >= DXL2_HEADER_SIZE
+           && memcmp(parser->buffer, dxl2_header, DXL2_HEADER_SIZE) != 0)
+    {
+        memmove(parser->buffer, parser->buffer + 1, --parser->length);
+    }
+
+    if (parser->length < DXL2_LENGTH_OFFSET + 2U)
+    {
+        return 0;
+    }
+
+    length_field = (uint16_t) parser->buffer[DXL2_LENGTH_OFFSET]
+                   | ((uint16_t) parser->buffer[DXL2_LENGTH_OFFSET + 1U] << 8);
+    if (length_field < DXL2_MIN_LENGTH || length_field > DXL2_MAX_PACKET_SIZE - DXL2_BODY_OFFSET)
+    {
+        dxl2_parser_reset(parser);
+        return DXL2_PARSE_ERROR;
+    }
+
+    total_length = (size_t) length_field + DXL2_BODY_OFFSET;
+    if (parser->length < total_length)
+    {
+        return 0;
+    }
+
+    result = dxl2_decode_packet(parser, packet, total_length);
+    dxl2_parser_reset(parser);
+    return result;
+}
+
+int dxl2_encode(uint8_t id, uint8_t instruction, const uint8_t* parameters,
+                uint16_t parameter_length, uint8_t* output, size_t output_capacity,
+                size_t* output_length)
+{
+    size_t write_offset = DXL2_BODY_OFFSET;
+    const size_t body_start = DXL2_BODY_OFFSET;
+    const size_t body_length = (size_t) parameter_length + 1U;
+    uint16_t length_field;
+    uint16_t crc;
+
+    if (output == NULL || output_length == NULL || (parameter_length != 0U && parameters == NULL)
+        || parameter_length > DXL2_MAX_PARAMETER_SIZE || output_capacity < 10U)
+    {
+        return DXL2_PARSE_ERROR;
+    }
+
+    memcpy(output, dxl2_header, sizeof(dxl2_header));
+    output[4] = id;
+
+    for (size_t i = 0U; i < body_length; ++i)
+    {
+        uint8_t value = i == 0U ? instruction : parameters[i - 1U];
+
+        if (write_offset + 1U > output_capacity - DXL2_CRC_SIZE)
+        {
+            return DXL2_PARSE_ERROR;
+        }
+        output[write_offset++] = value;
+        if (write_offset - body_start >= 3U && output[write_offset - 3U] == 0xFFU
+            && output[write_offset - 2U] == 0xFFU && output[write_offset - 1U] == 0xFDU)
+        {
+            if (write_offset + 1U > output_capacity - DXL2_CRC_SIZE)
+            {
+                return DXL2_PARSE_ERROR;
+            }
+            output[write_offset++] = 0xFDU;
+        }
+    }
+
+    length_field = (uint16_t) (write_offset - body_start + DXL2_CRC_SIZE);
+    output[DXL2_LENGTH_OFFSET] = (uint8_t) (length_field & 0xFFU);
+    output[DXL2_LENGTH_OFFSET + 1U] = (uint8_t) (length_field >> 8);
+    crc = dxl2_crc16(output, write_offset);
+    output[write_offset++] = (uint8_t) (crc & 0xFFU);
+    output[write_offset++] = (uint8_t) (crc >> 8);
+    *output_length = write_offset;
+
+    return 0;
+}

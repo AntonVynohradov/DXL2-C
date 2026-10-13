@@ -1,0 +1,31 @@
+name: Check Building Static Library
+
+on:
+  push:
+    branches:
+      - development
+  pull_request:
+    branches:
+      - development
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure (Debug preset)
+        run: cmake --preset "DXL2[Debug]" -B "build/DXL2[Debug]"
+
+      - name: Build
+        run: cmake --build "build/DXL2[Debug]"
+
+      - name: Configure (Release preset)
+        run: cmake --preset "DXL2[Release]" -B "build/DXL2[Release]"
+
+      - name: Build
+        run: cmake --build "build/DXL2[Release]"

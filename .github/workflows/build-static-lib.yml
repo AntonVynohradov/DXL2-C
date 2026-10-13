@@ -1,0 +1,27 @@
+name: Build Static Library
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure (Release preset)
+        run: cmake --preset "DXL2[Release]" -B "build/DXL2[Release]"
+
+      - name: Build
+        run: cmake --build "build/DXL2[Release]"
+
+      - name: Upload static library
+        uses: actions/upload-artifact@v4
+        with:
+          name: dxl2-static-lib
+          path: build/DXL2\[Release\]/libdxl2.a

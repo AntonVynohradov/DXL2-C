@@ -1,0 +1,31 @@
+#******************************************************************************
+# DXL2-C: DYNAMIXEL Protocol 2.0 Implementation
+#
+# Project:     DXL2-C - Hardware-Agnostic DYNAMIXEL Protocol 2.0 Library
+# Description: Files and directories ignored by Git.
+#
+# Author:      Anton Vynohradov
+# Email:       avynohradov@systemfromscratch.com
+#
+# License:     Apache License 2.0
+# Copyright (c) 2026 Anton Vynohradov
+#
+# SPDX-License-Identifier: Apache-2.0
+#*****************************************************************************
+
+# The build directory is ignored to prevent committing build artifacts
+build/
+out/
+
+# Cppcheck dump files (left behind if misra-analyze is interrupted)
+*.dump
+*.ctu-info
+
+# The PyTest cache, Python bytecode cache and virtual environments
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# MkDocs output
+site/

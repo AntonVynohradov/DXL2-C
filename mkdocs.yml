@@ -1,0 +1,48 @@
+site_name: DXL2-C (DYNAMIXEL Protocol 2.0)
+site_description: DYNAMIXEL Protocol 2.0 implementation in C
+site_author: Anton Vynohradov
+repo_url: https://github.com/AntonVynohradov/dxl2-c
+edit_uri: ""
+site_url: https://AntonVynohradov.github.io/dxl2-c/
+
+nav:
+  - Home: index.md
+  - Getting Started: guide.md
+  - Configuration: configuration.md
+  - API Reference: api.md
+  - Wire Format: protocol.md
+  - Integration: integration.md
+  - License: LICENSE.md
+
+theme:
+  name: readthedocs
+  features:
+    - navigation.instant
+    - navigation.top
+    - search.suggest
+    - search.highlight
+
+plugins:
+  - search
+  - autorefs
+  - mkdoxy:
+      projects:
+        docs:
+          src-dirs: .
+          full-doc: True
+          doxy-cfg:
+            FILE_PATTERNS: "*.c *.h* *.cpp *.py"
+            EXCLUDE_PATTERNS: "*/build/* */.venv/* */site/*"
+            RECURSIVE: True
+
+markdown_extensions:
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences
+  - pymdownx.tasklist
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+  - admonition
+  - tables
