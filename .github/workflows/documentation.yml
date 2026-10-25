@@ -37,17 +37,8 @@ jobs:
           # Published with the site as /downloads/DXL2-C_User_Manual.pdf
           python tools/docs/build_manual.py --output docs/downloads/DXL2-C_User_Manual.pdf
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.GH_PAGES_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-      - name: Switch remote to SSH
-        run: |
-          git remote set-url origin git@github.com:${{ github.repository }}.git
-
+      # actions/checkout leaves an HTTPS remote authenticated with GITHUB_TOKEN
+      # (contents: write), so gh-deploy can push to gh-pages without a deploy key.
       - name: Configure git
         run: |
           git config --global user.name "github-actions[bot]"
