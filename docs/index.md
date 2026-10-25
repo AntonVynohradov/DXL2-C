@@ -66,4 +66,4 @@ int main(void)
 | Add instructions, transports or contribute | [Extending the Library](extending.md) |
 | Look up the bytes on the wire | [Protocol](protocol.md) |
 | Look up a function | [API Reference](api.md) |
-| Read everything offline or print it | [PDF user manual](https://antonvynohradov.github.io/dxl2-c/downloads/DXL2-C_User_Manual.pdf) |
+| Read everything offline or print it | [PDF user manual](downloads/DXL2-C_User_Manual.pdf) |

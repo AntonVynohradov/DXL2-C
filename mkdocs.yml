@@ -3,7 +3,7 @@ site_description: >-
   Hardware-agnostic DYNAMIXEL Protocol 2.0 library in C for embedded systems:
   no heap, no RTOS, MISRA C:2012, 100 % test coverage.
 site_author: Anton Vynohradov
-site_url: https://antonvynohradov.github.io/dxl2-c/
+site_url: https://antonvynohradov.github.io/DXL2-C/
 repo_url: https://github.com/AntonVynohradov/DXL2-C
 repo_name: AntonVynohradov/DXL2-C
 edit_uri: ""
@@ -81,6 +81,8 @@ theme:
 
 extra:
   generator: false
+  # Header download button (overrides/partials/header.html); the PDF is built by CI
+  manual_pdf: downloads/DXL2-C_User_Manual.pdf
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/AntonVynohradov
