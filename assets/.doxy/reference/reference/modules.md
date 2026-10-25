@@ -1,0 +1,87 @@
+
+# Modules
+
+
+Here is a list of all modules:
+
+
+* [**DXL2 API**](group__dxl2.md) _Public API of the DYNAMIXEL Protocol 2.0 library._ 
+    
+
+
+
+
+
+    * [**Configuration**](group__dxl2__config.md) _Build-time configuration for DXL2._ 
+        
+
+
+
+
+    * [**Definitions**](group__dxl2__defs.md) _Protocol 2.0 IDs, instructions, error codes and byte-order helpers._ 
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    * [**Link**](group__dxl2__link.md) _Transport-independent link that owns a parser and dispatches packets._ 
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+    * [**Codec**](group__dxl2__protocol.md) _CRC-16, incremental stream parser and packet encoder with byte stuffing._ 
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structdxl2__packet" kind="struct" language="C++" prot="public">
+    <compoundname>dxl2_packet</compoundname>
+    <includes refid="dxl2__protocol_8h" local="no">dxl2_protocol.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdxl2__packet_1a8dabcc8a048479a5630e153eb7f26e84" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t dxl2_packet::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <qualifiedname>dxl2_packet::id</qualifiedname>
+        <briefdescription>
+<para>Packet source/destination ID. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_protocol.h" line="80" column="13" bodyfile="inc/dxl2_protocol.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__packet_1a949ee642de0b9d15927b265256445aff" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t dxl2_packet::instruction</definition>
+        <argsstring></argsstring>
+        <name>instruction</name>
+        <qualifiedname>dxl2_packet::instruction</qualifiedname>
+        <briefdescription>
+<para>Instruction byte, 0x55 for Status. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_protocol.h" line="81" column="13" bodyfile="inc/dxl2_protocol.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__packet_1a11cb6cde86a1a303f0917e3aa434e77b" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t dxl2_packet::parameter_length</definition>
+        <argsstring></argsstring>
+        <name>parameter_length</name>
+        <qualifiedname>dxl2_packet::parameter_length</qualifiedname>
+        <briefdescription>
+<para>Number of valid bytes in parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_protocol.h" line="82" column="14" bodyfile="inc/dxl2_protocol.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__packet_1a43c434f279dc493a73bcd1d8607bf9df" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t dxl2_packet::parameters[DXL2_MAX_PARAMETER_SIZE]</definition>
+        <argsstring>[DXL2_MAX_PARAMETER_SIZE]</argsstring>
+        <name>parameters</name>
+        <qualifiedname>dxl2_packet::parameters</qualifiedname>
+        <briefdescription>
+<para>Unstuffed parameter bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_protocol.h" line="83" column="13" bodyfile="inc/dxl2_protocol.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>One decoded Protocol 2.0 packet. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Byte stuffing has been removed from <computeroutput>parameters</computeroutput>. For a Status Packet (instruction 0x55), the status error byte is the first parameter. </para>
+    </detaileddescription>
+    <location file="inc/dxl2_protocol.h" line="78" column="1" bodyfile="inc/dxl2_protocol.h" bodystart="79" bodyend="84"/>
+    <listofallmembers>
+      <member refid="structdxl2__packet_1a8dabcc8a048479a5630e153eb7f26e84" prot="public" virt="non-virtual"><scope>dxl2_packet</scope><name>id</name></member>
+      <member refid="structdxl2__packet_1a949ee642de0b9d15927b265256445aff" prot="public" virt="non-virtual"><scope>dxl2_packet</scope><name>instruction</name></member>
+      <member refid="structdxl2__packet_1a11cb6cde86a1a303f0917e3aa434e77b" prot="public" virt="non-virtual"><scope>dxl2_packet</scope><name>parameter_length</name></member>
+      <member refid="structdxl2__packet_1a43c434f279dc493a73bcd1d8607bf9df" prot="public" virt="non-virtual"><scope>dxl2_packet</scope><name>parameters</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

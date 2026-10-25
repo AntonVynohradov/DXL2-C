@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structdxl2__parser" kind="struct" language="C++" prot="public">
+    <compoundname>dxl2_parser</compoundname>
+    <includes refid="dxl2__protocol_8h" local="no">dxl2_protocol.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdxl2__parser_1abaf389058b250ee8611702865fda49b9" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t dxl2_parser::buffer[DXL2_MAX_PACKET_SIZE]</definition>
+        <argsstring>[DXL2_MAX_PACKET_SIZE]</argsstring>
+        <name>buffer</name>
+        <qualifiedname>dxl2_parser::buffer</qualifiedname>
+        <briefdescription>
+<para>In-progress wire packet, header to CRC. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_protocol.h" line="94" column="13" bodyfile="inc/dxl2_protocol.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__parser_1ad48686741132fec2e618205604b44e7b" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t dxl2_parser::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <qualifiedname>dxl2_parser::length</qualifiedname>
+        <briefdescription>
+<para>Number of bytes currently in buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_protocol.h" line="95" column="12" bodyfile="inc/dxl2_protocol.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Incremental parser state for a byte stream. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Keep one instance per input stream and initialize it before feeding bytes. </para>
+    </detaileddescription>
+    <location file="inc/dxl2_protocol.h" line="92" column="1" bodyfile="inc/dxl2_protocol.h" bodystart="93" bodyend="96"/>
+    <listofallmembers>
+      <member refid="structdxl2__parser_1abaf389058b250ee8611702865fda49b9" prot="public" virt="non-virtual"><scope>dxl2_parser</scope><name>buffer</name></member>
+      <member refid="structdxl2__parser_1ad48686741132fec2e618205604b44e7b" prot="public" virt="non-virtual"><scope>dxl2_parser</scope><name>length</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

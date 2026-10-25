@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="group__dxl2" kind="group">
+    <compoundname>dxl2</compoundname>
+    <title>DXL2 API</title>
+    <innergroup refid="group__dxl2__config">Configuration</innergroup>
+    <innergroup refid="group__dxl2__defs">Definitions</innergroup>
+    <innergroup refid="group__dxl2__link">Link</innergroup>
+    <innergroup refid="group__dxl2__protocol">Codec</innergroup>
+    <sectiondef kind="user-defined">
+      <header>Library version</header>
+      <description><para>Normally injected by cmake/version.cmake from the Git tag; the values below apply to builds that do not use CMake. </para>
+</description>
+      <memberdef kind="define" id="group__dxl2_1ga8fc58296463290d52cedadb1f61d899f" prot="public" static="no">
+        <name>DXL2_VERSION_MAJOR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="dxl2.h" line="60" column="9" bodyfile="dxl2.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dxl2_1gae052ee2023449fa082608e8d75a554e6" prot="public" static="no">
+        <name>DXL2_VERSION_MINOR</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="dxl2.h" line="64" column="9" bodyfile="dxl2.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dxl2_1gabb95730f88722cb6c9bf7dfa3894aebe" prot="public" static="no">
+        <name>DXL2_VERSION_PATCH</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="dxl2.h" line="68" column="9" bodyfile="dxl2.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dxl2_1gad246a7468d3367af2a1bcb858a977faf" prot="public" static="no">
+        <name>DXL2_VERSION</name>
+        <initializer>&quot;1.0.0&quot;</initializer>
+        <briefdescription>
+<para>Version string &quot;MAJOR.MINOR.PATCH&quot;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="dxl2.h" line="73" column="9" bodyfile="dxl2.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Public API of the DYNAMIXEL Protocol 2.0 library. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This module groups the public interface and its supporting submodules: <ref refid="group__dxl2__config" kindref="compound">Configuration</ref>, <ref refid="group__dxl2__defs" kindref="compound">Definitions</ref>, <ref refid="group__dxl2__protocol" kindref="compound">Codec</ref> and <ref refid="group__dxl2__link" kindref="compound">Link</ref>.</para>
+<para>Include this single header to use the library: <itemizedlist>
+<listitem><para><ref refid="dxl2__config_8h" kindref="compound">dxl2_config.h</ref> build-time configuration (buffer sizes) </para>
+</listitem>
+<listitem><para><ref refid="dxl2__defs_8h" kindref="compound">dxl2_defs.h</ref> instructions, error codes, IDs, little-endian helpers </para>
+</listitem>
+<listitem><para><ref refid="dxl2__protocol_8h" kindref="compound">dxl2_protocol.h</ref> CRC-16, incremental parser, encoder with byte stuffing </para>
+</listitem>
+<listitem><para><ref refid="dxl2__link_8h" kindref="compound">dxl2_link.h</ref> transport-independent link (stream in, packets out) </para>
+</listitem>
+</itemizedlist>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

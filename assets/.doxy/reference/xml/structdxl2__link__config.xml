@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structdxl2__link__config" kind="struct" language="C++" prot="public">
+    <compoundname>dxl2_link_config</compoundname>
+    <includes refid="dxl2__link_8h" local="no">dxl2_link.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdxl2__link__config_1a1cc53da764eb19fbbd6a6ea1ef99cb04" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dxl2__link_1ga8da3391784f39f4005f35754de28d804" kindref="member">dxl2_write_fn</ref></type>
+        <definition>dxl2_write_fn dxl2_link_config::write</definition>
+        <argsstring></argsstring>
+        <name>write</name>
+        <qualifiedname>dxl2_link_config::write</qualifiedname>
+        <briefdescription>
+<para>Byte writer; NULL makes the link receive-only. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="97" column="19" bodyfile="inc/dxl2_link.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__link__config_1a4c928a36695bb29f70ce02c0b69e3810" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* dxl2_link_config::write_context</definition>
+        <argsstring></argsstring>
+        <name>write_context</name>
+        <qualifiedname>dxl2_link_config::write_context</qualifiedname>
+        <briefdescription>
+<para>Context for write. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="98" column="10" bodyfile="inc/dxl2_link.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__link__config_1af8ff560ed2cfb4273d72b8c983a6e4aa" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dxl2__link_1ga1f814af3bdaa9faa3762016ad57ddb88" kindref="member">dxl2_packet_handler_t</ref></type>
+        <definition>dxl2_packet_handler_t dxl2_link_config::handler</definition>
+        <argsstring></argsstring>
+        <name>handler</name>
+        <qualifiedname>dxl2_link_config::handler</qualifiedname>
+        <briefdescription>
+<para>Packet handler; NULL discards (still counted). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="99" column="27" bodyfile="inc/dxl2_link.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__link__config_1ae3157684d15e304afc72919ef0073681" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* dxl2_link_config::handler_context</definition>
+        <argsstring></argsstring>
+        <name>handler_context</name>
+        <qualifiedname>dxl2_link_config::handler_context</qualifiedname>
+        <briefdescription>
+<para>Context for handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="100" column="10" bodyfile="inc/dxl2_link.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Link configuration passed to <ref refid="group__dxl2__link_1ga8db6e8221a44003aa7d1f2f829230ae8" kindref="member">dxl2_link_init</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>dxl2_link_config</label>
+        <link refid="structdxl2__link__config"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>handler</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>dxl2_packet</label>
+        <link refid="structdxl2__packet"/>
+      </node>
+    </collaborationgraph>
+    <location file="inc/dxl2_link.h" line="95" column="1" bodyfile="inc/dxl2_link.h" bodystart="96" bodyend="101"/>
+    <listofallmembers>
+      <member refid="structdxl2__link__config_1af8ff560ed2cfb4273d72b8c983a6e4aa" prot="public" virt="non-virtual"><scope>dxl2_link_config</scope><name>handler</name></member>
+      <member refid="structdxl2__link__config_1ae3157684d15e304afc72919ef0073681" prot="public" virt="non-virtual"><scope>dxl2_link_config</scope><name>handler_context</name></member>
+      <member refid="structdxl2__link__config_1a1cc53da764eb19fbbd6a6ea1ef99cb04" prot="public" virt="non-virtual"><scope>dxl2_link_config</scope><name>write</name></member>
+      <member refid="structdxl2__link__config_1a4c928a36695bb29f70ce02c0b69e3810" prot="public" virt="non-virtual"><scope>dxl2_link_config</scope><name>write_context</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

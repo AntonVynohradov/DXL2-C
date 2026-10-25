@@ -1,0 +1,433 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="group__dxl2__link" kind="group">
+    <compoundname>dxl2_link</compoundname>
+    <title>Link</title>
+    <innerclass refid="structdxl2__link__config" prot="public">dxl2_link_config</innerclass>
+    <innerclass refid="structdxl2__link" prot="public">dxl2_link</innerclass>
+    <sectiondef kind="user-defined">
+      <header>Type definitions</header>
+      <memberdef kind="typedef" id="group__dxl2__link_1ga8da3391784f39f4005f35754de28d804" prot="public" static="no">
+        <type>int(*</type>
+        <definition>typedef int(* dxl2_write_fn) (void *context, const uint8_t *data, size_t length)</definition>
+        <argsstring>)(void *context, const uint8_t *data, size_t length)</argsstring>
+        <name>dxl2_write_fn</name>
+        <briefdescription>
+<para>Write a complete wire packet to the transport. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value of <ref refid="structdxl2__link__config_1a4c928a36695bb29f70ce02c0b69e3810" kindref="member">dxl2_link_config::write_context</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Encoded packet, including header and CRC. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes in <computeroutput>data</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 on success, a negative value on failure (returned by the send call). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="80" column="9" bodyfile="inc/dxl2_link.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dxl2__link_1ga1f814af3bdaa9faa3762016ad57ddb88" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* dxl2_packet_handler_t) (const struct dxl2_packet *packet, void *context)</definition>
+        <argsstring>)(const struct dxl2_packet *packet, void *context)</argsstring>
+        <name>dxl2_packet_handler_t</name>
+        <briefdescription>
+<para>Handle one valid packet received by the link. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The packet pointer is valid only for the duration of the callback. Copy any data that must be retained after the callback returns. The handler may call <ref refid="group__dxl2__link_1gaaf14e858ba2e54e6a63fda49b87660bb" kindref="member">dxl2_link_send</ref> on the same link to answer.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>packet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Decoded packet with byte stuffing removed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value of <ref refid="structdxl2__link__config_1ae3157684d15e304afc72919ef0073681" kindref="member">dxl2_link_config::handler_context</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="92" column="9" bodyfile="inc/dxl2_link.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Public function declarations</header>
+      <memberdef kind="function" id="group__dxl2__link_1ga8db6e8221a44003aa7d1f2f829230ae8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int dxl2_link_init</definition>
+        <argsstring>(struct dxl2_link *link, const struct dxl2_link_config *config)</argsstring>
+        <name>dxl2_link_init</name>
+        <param>
+          <type>struct <ref refid="structdxl2__link" kindref="compound">dxl2_link</ref> *</type>
+          <declname>link</declname>
+        </param>
+        <param>
+          <type>const struct <ref refid="structdxl2__link__config" kindref="compound">dxl2_link_config</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a link and reset its parser and counters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>link</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Link state to initialize. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configuration copied into the link. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Link ready. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DXL2_PARSE_ERROR</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><computeroutput>link</computeroutput> or <computeroutput>config</computeroutput> is NULL. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="125" column="5" bodyfile="src/dxl2_link.c" bodystart="63" bodyend="76" declfile="inc/dxl2_link.h" declline="125" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dxl2__link_1ga6a2658870c637c2335fdbed8594296e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dxl2_link_receive</definition>
+        <argsstring>(struct dxl2_link *link, const uint8_t *data, size_t length)</argsstring>
+        <name>dxl2_link_receive</name>
+        <param>
+          <type>struct <ref refid="structdxl2__link" kindref="compound">dxl2_link</ref> *</type>
+          <declname>link</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Feed received bytes; calls the handler for each complete valid packet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Bytes may arrive in any chunking. Malformed or CRC-invalid packets are dropped and counted, and the parser resynchronizes on the next header.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>link</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Link state. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Received bytes; may be NULL only when <computeroutput>length</computeroutput> is zero. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes in <computeroutput>data</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="138" column="6" bodyfile="src/dxl2_link.c" bodystart="78" bodyend="104" declfile="inc/dxl2_link.h" declline="138" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dxl2__link_1gaaf14e858ba2e54e6a63fda49b87660bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int dxl2_link_send</definition>
+        <argsstring>(struct dxl2_link *link, uint8_t id, uint8_t instruction, const uint8_t *parameters, uint16_t parameter_length)</argsstring>
+        <name>dxl2_link_send</name>
+        <param>
+          <type>struct <ref refid="structdxl2__link" kindref="compound">dxl2_link</ref> *</type>
+          <declname>link</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>instruction</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>parameters</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>parameter_length</declname>
+        </param>
+        <briefdescription>
+<para>Encode one packet (stuffing and CRC added) and write it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>link</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Link state. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>instruction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instruction byte. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parameters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unstuffed parameters, or NULL when <computeroutput>parameter_length</computeroutput> is zero. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parameter_length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of parameter bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Packet written. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DXL2_PARSE_ERROR</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Invalid arguments, packet too large, or no writer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Other</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>negative value Error returned by the write function. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="152" column="5" bodyfile="src/dxl2_link.c" bodystart="106" bodyend="125" declfile="inc/dxl2_link.h" declline="152" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dxl2__link_1ga378fb8ad8cf0a3ee498e91f391938fd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int dxl2_link_send_status</definition>
+        <argsstring>(struct dxl2_link *link, uint8_t id, uint8_t error, const uint8_t *data, uint16_t data_length)</argsstring>
+        <name>dxl2_link_send_status</name>
+        <param>
+          <type>struct <ref refid="structdxl2__link" kindref="compound">dxl2_link</ref> *</type>
+          <declname>link</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>error</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>data_length</declname>
+        </param>
+        <briefdescription>
+<para>Send a Status Packet: error byte followed by <computeroutput>data</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>link</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Link state. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the answering device. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>error</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status error byte (DXL2_ERR_*, optionally with DXL2_ERR_ALERT_BIT). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status data, or NULL when <computeroutput>data_length</computeroutput> is zero. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data_length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of data bytes (at most DXL2_MAX_PARAMETER_SIZE - 1). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Same as <ref refid="group__dxl2__link_1gaaf14e858ba2e54e6a63fda49b87660bb" kindref="member">dxl2_link_send</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="165" column="5" bodyfile="src/dxl2_link.c" bodystart="127" bodyend="146" declfile="inc/dxl2_link.h" declline="165" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dxl2__link_1ga06325aaf0b7edc509f871670fbc43b1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t dxl2_link_rx_packets</definition>
+        <argsstring>(const struct dxl2_link *link)</argsstring>
+        <name>dxl2_link_rx_packets</name>
+        <param>
+          <type>const struct <ref refid="structdxl2__link" kindref="compound">dxl2_link</ref> *</type>
+          <declname>link</declname>
+        </param>
+        <briefdescription>
+<para>Number of valid packets received since <ref refid="group__dxl2__link_1ga8db6e8221a44003aa7d1f2f829230ae8" kindref="member">dxl2_link_init</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="169" column="10" bodyfile="src/dxl2_link.c" bodystart="148" bodyend="151" declfile="inc/dxl2_link.h" declline="169" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dxl2__link_1ga36d609f1afd6827e3acca76ecce4e478" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t dxl2_link_invalid_packets</definition>
+        <argsstring>(const struct dxl2_link *link)</argsstring>
+        <name>dxl2_link_invalid_packets</name>
+        <param>
+          <type>const struct <ref refid="structdxl2__link" kindref="compound">dxl2_link</ref> *</type>
+          <declname>link</declname>
+        </param>
+        <briefdescription>
+<para>Number of malformed or CRC-invalid packets rejected since <ref refid="group__dxl2__link_1ga8db6e8221a44003aa7d1f2f829230ae8" kindref="member">dxl2_link_init</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="172" column="10" bodyfile="src/dxl2_link.c" bodystart="153" bodyend="156" declfile="inc/dxl2_link.h" declline="172" declcolumn="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Transport-independent link that owns a parser and dispatches packets. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The link owns a parser, dispatches every valid packet to a handler, and encodes outgoing packets into a caller-supplied write function. It has no RTOS or driver dependency: the integrator moves received bytes from the UART/USB/socket into <ref refid="group__dxl2__link_1ga6a2658870c637c2335fdbed8594296e8" kindref="member">dxl2_link_receive</ref> and provides the byte writer.</para>
+<para>A link is not thread-safe. Call <ref refid="group__dxl2__link_1ga6a2658870c637c2335fdbed8594296e8" kindref="member">dxl2_link_receive</ref> from one context only (for example an RX thread, not an interrupt handler), and serialize <ref refid="group__dxl2__link_1gaaf14e858ba2e54e6a63fda49b87660bb" kindref="member">dxl2_link_send</ref> calls from several contexts with a mutex.</para>
+<para><simplesect kind="par"><title>Public interface includes:</title><para><itemizedlist>
+<listitem><para>Lifecycle: <ref refid="group__dxl2__link_1ga8db6e8221a44003aa7d1f2f829230ae8" kindref="member">dxl2_link_init</ref>. </para>
+</listitem>
+<listitem><para>Message flow: <ref refid="group__dxl2__link_1ga6a2658870c637c2335fdbed8594296e8" kindref="member">dxl2_link_receive</ref>, <ref refid="group__dxl2__link_1gaaf14e858ba2e54e6a63fda49b87660bb" kindref="member">dxl2_link_send</ref>, <ref refid="group__dxl2__link_1ga378fb8ad8cf0a3ee498e91f391938fd0" kindref="member">dxl2_link_send_status</ref>. </para>
+</listitem>
+<listitem><para>Diagnostics: <ref refid="group__dxl2__link_1ga06325aaf0b7edc509f871670fbc43b1c" kindref="member">dxl2_link_rx_packets</ref>, <ref refid="group__dxl2__link_1ga36d609f1afd6827e3acca76ecce4e478" kindref="member">dxl2_link_invalid_packets</ref>. </para>
+</listitem>
+</itemizedlist>
+</para>
+</simplesect>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.8" xml:lang="en-US">
+  <compound refid="structdxl2__link" kind="struct"><name>dxl2_link</name>
+    <member refid="structdxl2__link_1adaf8d06ec0b3a838b09963876b5a55b1" kind="variable"><name>config</name></member>
+    <member refid="structdxl2__link_1a1b531e6aa955c777e41d035ca0e4dc7e" kind="variable"><name>parser</name></member>
+    <member refid="structdxl2__link_1a10d3db689519645e2c6fe1eafb1cfbd0" kind="variable"><name>packet</name></member>
+    <member refid="structdxl2__link_1ab949179c9bf8581b51bfbf67344ed028" kind="variable"><name>rx_packets</name></member>
+    <member refid="structdxl2__link_1ae100e8191f059ceb912db690e8203b7b" kind="variable"><name>invalid_packets</name></member>
+  </compound>
+  <compound refid="structdxl2__link__config" kind="struct"><name>dxl2_link_config</name>
+    <member refid="structdxl2__link__config_1a1cc53da764eb19fbbd6a6ea1ef99cb04" kind="variable"><name>write</name></member>
+    <member refid="structdxl2__link__config_1a4c928a36695bb29f70ce02c0b69e3810" kind="variable"><name>write_context</name></member>
+    <member refid="structdxl2__link__config_1af8ff560ed2cfb4273d72b8c983a6e4aa" kind="variable"><name>handler</name></member>
+    <member refid="structdxl2__link__config_1ae3157684d15e304afc72919ef0073681" kind="variable"><name>handler_context</name></member>
+  </compound>
+  <compound refid="structdxl2__packet" kind="struct"><name>dxl2_packet</name>
+    <member refid="structdxl2__packet_1a8dabcc8a048479a5630e153eb7f26e84" kind="variable"><name>id</name></member>
+    <member refid="structdxl2__packet_1a949ee642de0b9d15927b265256445aff" kind="variable"><name>instruction</name></member>
+    <member refid="structdxl2__packet_1a11cb6cde86a1a303f0917e3aa434e77b" kind="variable"><name>parameter_length</name></member>
+    <member refid="structdxl2__packet_1a43c434f279dc493a73bcd1d8607bf9df" kind="variable"><name>parameters</name></member>
+  </compound>
+  <compound refid="structdxl2__parser" kind="struct"><name>dxl2_parser</name>
+    <member refid="structdxl2__parser_1abaf389058b250ee8611702865fda49b9" kind="variable"><name>buffer</name></member>
+    <member refid="structdxl2__parser_1ad48686741132fec2e618205604b44e7b" kind="variable"><name>length</name></member>
+  </compound>
+  <compound refid="dxl2_8h" kind="file"><name>dxl2.h</name>
+    <member refid="group__dxl2_1ga8fc58296463290d52cedadb1f61d899f" kind="define"><name>DXL2_VERSION_MAJOR</name></member>
+    <member refid="group__dxl2_1gae052ee2023449fa082608e8d75a554e6" kind="define"><name>DXL2_VERSION_MINOR</name></member>
+    <member refid="group__dxl2_1gabb95730f88722cb6c9bf7dfa3894aebe" kind="define"><name>DXL2_VERSION_PATCH</name></member>
+    <member refid="group__dxl2_1gad246a7468d3367af2a1bcb858a977faf" kind="define"><name>DXL2_VERSION</name></member>
+  </compound>
+  <compound refid="dxl2__config_8h" kind="file"><name>dxl2_config.h</name>
+    <member refid="group__dxl2__config_1ga668d14fe97878bd22dccbd6508ed916b" kind="define"><name>DXL2_MAX_PACKET_SIZE</name></member>
+  </compound>
+  <compound refid="dxl2__defs_8h" kind="file"><name>dxl2_defs.h</name>
+    <member refid="group__dxl2__defs_1ga98062b2c3cbf258bcc71f3e5ab0b4b39" kind="define"><name>DXL2_MAX_ID</name></member>
+    <member refid="group__dxl2__defs_1ga2596087b0db6ca41f177a1f377c79f6f" kind="define"><name>DXL2_BROADCAST_ID</name></member>
+    <member refid="group__dxl2__defs_1gae9e86e7048407bfb01c5e86bdedfe31d" kind="define"><name>DXL2_INST_PING</name></member>
+    <member refid="group__dxl2__defs_1gaf86cd527b01dad90f5a4fbd6a37e9a93" kind="define"><name>DXL2_INST_READ</name></member>
+    <member refid="group__dxl2__defs_1gaabf990228508dd4872e5e8f5b3d74082" kind="define"><name>DXL2_INST_WRITE</name></member>
+    <member refid="group__dxl2__defs_1ga0ec44fe5a542464aa410c76a2aa5d864" kind="define"><name>DXL2_INST_REG_WRITE</name></member>
+    <member refid="group__dxl2__defs_1ga84fa963d1f8ca9e2b8ef2f9451cf10eb" kind="define"><name>DXL2_INST_ACTION</name></member>
+    <member refid="group__dxl2__defs_1ga31b743a2832d5e2ee70b50ee5b578a74" kind="define"><name>DXL2_INST_FACTORY_RESET</name></member>
+    <member refid="group__dxl2__defs_1gaf04c05406c4d5d3f79313f348558fdca" kind="define"><name>DXL2_INST_REBOOT</name></member>
+    <member refid="group__dxl2__defs_1ga016e0c256a32e3994f9951aca1df4da2" kind="define"><name>DXL2_INST_CLEAR</name></member>
+    <member refid="group__dxl2__defs_1gaae75e475a7b2b32a374d41b07e384633" kind="define"><name>DXL2_INST_BACKUP</name></member>
+    <member refid="group__dxl2__defs_1ga1164177c2dc599437253c84e2e6b44ae" kind="define"><name>DXL2_INST_STATUS</name></member>
+    <member refid="group__dxl2__defs_1ga4ed8898328c88b9f7572b4882154c1db" kind="define"><name>DXL2_INST_SYNC_READ</name></member>
+    <member refid="group__dxl2__defs_1gaed183150e9bbe881c337bc1eae0060f8" kind="define"><name>DXL2_INST_SYNC_WRITE</name></member>
+    <member refid="group__dxl2__defs_1ga559c38b34d3552e6d39f6042c9717984" kind="define"><name>DXL2_INST_FAST_SYNC_READ</name></member>
+    <member refid="group__dxl2__defs_1gab162fd71ebbb4ab35cd8be0e5d237c88" kind="define"><name>DXL2_INST_BULK_READ</name></member>
+    <member refid="group__dxl2__defs_1ga4299cedb653625259759713d052c9804" kind="define"><name>DXL2_INST_BULK_WRITE</name></member>
+    <member refid="group__dxl2__defs_1ga5b7a6f9b10d2010bbd7b1d1ff688880e" kind="define"><name>DXL2_INST_FAST_BULK_READ</name></member>
+    <member refid="group__dxl2__defs_1ga706c1163911755fcca6f3856d75bb6eb" kind="define"><name>DXL2_ERR_NONE</name></member>
+    <member refid="group__dxl2__defs_1ga2f48818dc5cf50c6f90fabf16c6296c7" kind="define"><name>DXL2_ERR_RESULT_FAIL</name></member>
+    <member refid="group__dxl2__defs_1gafb98d5a7dce075efac4bab2c8ae929a3" kind="define"><name>DXL2_ERR_INSTRUCTION</name></member>
+    <member refid="group__dxl2__defs_1ga163741d99b930b49a86315f9fd5e2652" kind="define"><name>DXL2_ERR_CRC</name></member>
+    <member refid="group__dxl2__defs_1ga71f3092b03b65b5cb980532fe83d080f" kind="define"><name>DXL2_ERR_DATA_RANGE</name></member>
+    <member refid="group__dxl2__defs_1ga4f6ef9e6f768b9344e8943824cbc6712" kind="define"><name>DXL2_ERR_DATA_LENGTH</name></member>
+    <member refid="group__dxl2__defs_1ga06422aff80870fd66a08aff3eb3e232c" kind="define"><name>DXL2_ERR_DATA_LIMIT</name></member>
+    <member refid="group__dxl2__defs_1gaac3f446bfa65128671493fe2524ccd7d" kind="define"><name>DXL2_ERR_ACCESS</name></member>
+    <member refid="group__dxl2__defs_1gac2c008fa18121ec07cc5cc4ab695860e" kind="define"><name>DXL2_ERR_ALERT_BIT</name></member>
+    <member refid="group__dxl2__defs_1ga55574c9de62299816310adbc622d31b7" kind="function"><name>dxl2_get_u16</name></member>
+    <member refid="group__dxl2__defs_1ga37a89781e4b63ed3ba7c2d3783546dc5" kind="function"><name>dxl2_get_u32</name></member>
+    <member refid="group__dxl2__defs_1gaa86970ee07548f7fc03fb9f524e86974" kind="function"><name>dxl2_put_u16</name></member>
+    <member refid="group__dxl2__defs_1gaa6c3ccde82d8f5351c1a64f91cffc4c3" kind="function"><name>dxl2_put_u32</name></member>
+  </compound>
+  <compound refid="dxl2__link_8h" kind="file"><name>dxl2_link.h</name>
+    <member refid="group__dxl2__link_1ga8da3391784f39f4005f35754de28d804" kind="typedef"><name>dxl2_write_fn</name></member>
+    <member refid="group__dxl2__link_1ga1f814af3bdaa9faa3762016ad57ddb88" kind="typedef"><name>dxl2_packet_handler_t</name></member>
+    <member refid="group__dxl2__link_1ga8db6e8221a44003aa7d1f2f829230ae8" kind="function"><name>dxl2_link_init</name></member>
+    <member refid="group__dxl2__link_1ga6a2658870c637c2335fdbed8594296e8" kind="function"><name>dxl2_link_receive</name></member>
+    <member refid="group__dxl2__link_1gaaf14e858ba2e54e6a63fda49b87660bb" kind="function"><name>dxl2_link_send</name></member>
+    <member refid="group__dxl2__link_1ga378fb8ad8cf0a3ee498e91f391938fd0" kind="function"><name>dxl2_link_send_status</name></member>
+    <member refid="group__dxl2__link_1ga06325aaf0b7edc509f871670fbc43b1c" kind="function"><name>dxl2_link_rx_packets</name></member>
+    <member refid="group__dxl2__link_1ga36d609f1afd6827e3acca76ecce4e478" kind="function"><name>dxl2_link_invalid_packets</name></member>
+  </compound>
+  <compound refid="dxl2__protocol_8h" kind="file"><name>dxl2_protocol.h</name>
+    <member refid="group__dxl2__protocol_1gaf01af48f49e4ef7cd87e890f679e356d" kind="define"><name>DXL2_MAX_PARAMETER_SIZE</name></member>
+    <member refid="group__dxl2__protocol_1ga540d5dd9c587d474e122210e477e46cb" kind="define"><name>DXL2_PARSE_ERROR</name></member>
+    <member refid="group__dxl2__protocol_1gaa4decaae4fb141106641431bcc78ecd3" kind="function"><name>dxl2_crc16</name></member>
+    <member refid="group__dxl2__protocol_1ga2d741ee63032e718403940097699ab55" kind="function"><name>dxl2_parser_init</name></member>
+    <member refid="group__dxl2__protocol_1ga6de3bf6f32879dad192cb8c37772eaf9" kind="function"><name>dxl2_parser_feed</name></member>
+    <member refid="group__dxl2__protocol_1ga65eb92a7f413793741f5184b8a57c23a" kind="function"><name>dxl2_encode</name></member>
+  </compound>
+  <compound refid="dxl2__link_8c" kind="file"><name>dxl2_link.c</name>
+    <member refid="group__dxl2__link_1ga8db6e8221a44003aa7d1f2f829230ae8" kind="function"><name>dxl2_link_init</name></member>
+    <member refid="group__dxl2__link_1ga6a2658870c637c2335fdbed8594296e8" kind="function"><name>dxl2_link_receive</name></member>
+    <member refid="group__dxl2__link_1gaaf14e858ba2e54e6a63fda49b87660bb" kind="function"><name>dxl2_link_send</name></member>
+    <member refid="group__dxl2__link_1ga378fb8ad8cf0a3ee498e91f391938fd0" kind="function"><name>dxl2_link_send_status</name></member>
+    <member refid="group__dxl2__link_1ga06325aaf0b7edc509f871670fbc43b1c" kind="function"><name>dxl2_link_rx_packets</name></member>
+    <member refid="group__dxl2__link_1ga36d609f1afd6827e3acca76ecce4e478" kind="function"><name>dxl2_link_invalid_packets</name></member>
+  </compound>
+  <compound refid="dxl2__protocol_8c" kind="file"><name>dxl2_protocol.c</name>
+    <member refid="dxl2__protocol_8c_1aa6a3e972c0a07064d29c44758697923f" kind="define"><name>DXL2_HEADER_SIZE</name></member>
+    <member refid="dxl2__protocol_8c_1a639a14b60393dcbdd42ca8759e4a83a3" kind="define"><name>DXL2_MIN_LENGTH</name></member>
+    <member refid="dxl2__protocol_8c_1a926d54e421416ecf892c5338687b85d1" kind="define"><name>DXL2_LENGTH_OFFSET</name></member>
+    <member refid="dxl2__protocol_8c_1ad6ce8a73764e9e5e7d5b965b391ca8aa" kind="define"><name>DXL2_BODY_OFFSET</name></member>
+    <member refid="dxl2__protocol_8c_1a09432a5a42ded6b0b471d42a82e73984" kind="define"><name>DXL2_CRC_SIZE</name></member>
+    <member refid="dxl2__protocol_8c_1a0df9945c2350b8c271396610dfb75fe1" kind="variable"><name>dxl2_header</name></member>
+    <member refid="dxl2__protocol_8c_1a499bc80f5a510a17f62fca1927a1b198" kind="function"><name>dxl2_parser_reset</name></member>
+    <member refid="dxl2__protocol_8c_1a1112afbee967d2865e067b231ebcc4c4" kind="function"><name>dxl2_decode_packet</name></member>
+    <member refid="group__dxl2__protocol_1gaa4decaae4fb141106641431bcc78ecd3" kind="function"><name>dxl2_crc16</name></member>
+    <member refid="group__dxl2__protocol_1ga2d741ee63032e718403940097699ab55" kind="function"><name>dxl2_parser_init</name></member>
+    <member refid="group__dxl2__protocol_1ga6de3bf6f32879dad192cb8c37772eaf9" kind="function"><name>dxl2_parser_feed</name></member>
+    <member refid="group__dxl2__protocol_1ga65eb92a7f413793741f5184b8a57c23a" kind="function"><name>dxl2_encode</name></member>
+  </compound>
+  <compound refid="group__dxl2" kind="group"><name>dxl2</name>
+    <member refid="group__dxl2_1ga8fc58296463290d52cedadb1f61d899f" kind="define"><name>DXL2_VERSION_MAJOR</name></member>
+    <member refid="group__dxl2_1gae052ee2023449fa082608e8d75a554e6" kind="define"><name>DXL2_VERSION_MINOR</name></member>
+    <member refid="group__dxl2_1gabb95730f88722cb6c9bf7dfa3894aebe" kind="define"><name>DXL2_VERSION_PATCH</name></member>
+    <member refid="group__dxl2_1gad246a7468d3367af2a1bcb858a977faf" kind="define"><name>DXL2_VERSION</name></member>
+  </compound>
+  <compound refid="group__dxl2__config" kind="group"><name>dxl2_config</name>
+    <member refid="group__dxl2__config_1ga668d14fe97878bd22dccbd6508ed916b" kind="define"><name>DXL2_MAX_PACKET_SIZE</name></member>
+  </compound>
+  <compound refid="group__dxl2__defs" kind="group"><name>dxl2_defs</name>
+    <member refid="group__dxl2__defs_1ga55574c9de62299816310adbc622d31b7" kind="function"><name>dxl2_get_u16</name></member>
+    <member refid="group__dxl2__defs_1ga37a89781e4b63ed3ba7c2d3783546dc5" kind="function"><name>dxl2_get_u32</name></member>
+    <member refid="group__dxl2__defs_1gaa86970ee07548f7fc03fb9f524e86974" kind="function"><name>dxl2_put_u16</name></member>
+    <member refid="group__dxl2__defs_1gaa6c3ccde82d8f5351c1a64f91cffc4c3" kind="function"><name>dxl2_put_u32</name></member>
+    <member refid="group__dxl2__defs_1ga98062b2c3cbf258bcc71f3e5ab0b4b39" kind="define"><name>DXL2_MAX_ID</name></member>
+    <member refid="group__dxl2__defs_1ga2596087b0db6ca41f177a1f377c79f6f" kind="define"><name>DXL2_BROADCAST_ID</name></member>
+    <member refid="group__dxl2__defs_1gae9e86e7048407bfb01c5e86bdedfe31d" kind="define"><name>DXL2_INST_PING</name></member>
+    <member refid="group__dxl2__defs_1gaf86cd527b01dad90f5a4fbd6a37e9a93" kind="define"><name>DXL2_INST_READ</name></member>
+    <member refid="group__dxl2__defs_1gaabf990228508dd4872e5e8f5b3d74082" kind="define"><name>DXL2_INST_WRITE</name></member>
+    <member refid="group__dxl2__defs_1ga0ec44fe5a542464aa410c76a2aa5d864" kind="define"><name>DXL2_INST_REG_WRITE</name></member>
+    <member refid="group__dxl2__defs_1ga84fa963d1f8ca9e2b8ef2f9451cf10eb" kind="define"><name>DXL2_INST_ACTION</name></member>
+    <member refid="group__dxl2__defs_1ga31b743a2832d5e2ee70b50ee5b578a74" kind="define"><name>DXL2_INST_FACTORY_RESET</name></member>
+    <member refid="group__dxl2__defs_1gaf04c05406c4d5d3f79313f348558fdca" kind="define"><name>DXL2_INST_REBOOT</name></member>
+    <member refid="group__dxl2__defs_1ga016e0c256a32e3994f9951aca1df4da2" kind="define"><name>DXL2_INST_CLEAR</name></member>
+    <member refid="group__dxl2__defs_1gaae75e475a7b2b32a374d41b07e384633" kind="define"><name>DXL2_INST_BACKUP</name></member>
+    <member refid="group__dxl2__defs_1ga1164177c2dc599437253c84e2e6b44ae" kind="define"><name>DXL2_INST_STATUS</name></member>
+    <member refid="group__dxl2__defs_1ga4ed8898328c88b9f7572b4882154c1db" kind="define"><name>DXL2_INST_SYNC_READ</name></member>
+    <member refid="group__dxl2__defs_1gaed183150e9bbe881c337bc1eae0060f8" kind="define"><name>DXL2_INST_SYNC_WRITE</name></member>
+    <member refid="group__dxl2__defs_1ga559c38b34d3552e6d39f6042c9717984" kind="define"><name>DXL2_INST_FAST_SYNC_READ</name></member>
+    <member refid="group__dxl2__defs_1gab162fd71ebbb4ab35cd8be0e5d237c88" kind="define"><name>DXL2_INST_BULK_READ</name></member>
+    <member refid="group__dxl2__defs_1ga4299cedb653625259759713d052c9804" kind="define"><name>DXL2_INST_BULK_WRITE</name></member>
+    <member refid="group__dxl2__defs_1ga5b7a6f9b10d2010bbd7b1d1ff688880e" kind="define"><name>DXL2_INST_FAST_BULK_READ</name></member>
+    <member refid="group__dxl2__defs_1ga706c1163911755fcca6f3856d75bb6eb" kind="define"><name>DXL2_ERR_NONE</name></member>
+    <member refid="group__dxl2__defs_1ga2f48818dc5cf50c6f90fabf16c6296c7" kind="define"><name>DXL2_ERR_RESULT_FAIL</name></member>
+    <member refid="group__dxl2__defs_1gafb98d5a7dce075efac4bab2c8ae929a3" kind="define"><name>DXL2_ERR_INSTRUCTION</name></member>
+    <member refid="group__dxl2__defs_1ga163741d99b930b49a86315f9fd5e2652" kind="define"><name>DXL2_ERR_CRC</name></member>
+    <member refid="group__dxl2__defs_1ga71f3092b03b65b5cb980532fe83d080f" kind="define"><name>DXL2_ERR_DATA_RANGE</name></member>
+    <member refid="group__dxl2__defs_1ga4f6ef9e6f768b9344e8943824cbc6712" kind="define"><name>DXL2_ERR_DATA_LENGTH</name></member>
+    <member refid="group__dxl2__defs_1ga06422aff80870fd66a08aff3eb3e232c" kind="define"><name>DXL2_ERR_DATA_LIMIT</name></member>
+    <member refid="group__dxl2__defs_1gaac3f446bfa65128671493fe2524ccd7d" kind="define"><name>DXL2_ERR_ACCESS</name></member>
+    <member refid="group__dxl2__defs_1gac2c008fa18121ec07cc5cc4ab695860e" kind="define"><name>DXL2_ERR_ALERT_BIT</name></member>
+  </compound>
+  <compound refid="group__dxl2__link" kind="group"><name>dxl2_link</name>
+    <member refid="group__dxl2__link_1ga8da3391784f39f4005f35754de28d804" kind="typedef"><name>dxl2_write_fn</name></member>
+    <member refid="group__dxl2__link_1ga1f814af3bdaa9faa3762016ad57ddb88" kind="typedef"><name>dxl2_packet_handler_t</name></member>
+    <member refid="group__dxl2__link_1ga8db6e8221a44003aa7d1f2f829230ae8" kind="function"><name>dxl2_link_init</name></member>
+    <member refid="group__dxl2__link_1ga6a2658870c637c2335fdbed8594296e8" kind="function"><name>dxl2_link_receive</name></member>
+    <member refid="group__dxl2__link_1gaaf14e858ba2e54e6a63fda49b87660bb" kind="function"><name>dxl2_link_send</name></member>
+    <member refid="group__dxl2__link_1ga378fb8ad8cf0a3ee498e91f391938fd0" kind="function"><name>dxl2_link_send_status</name></member>
+    <member refid="group__dxl2__link_1ga06325aaf0b7edc509f871670fbc43b1c" kind="function"><name>dxl2_link_rx_packets</name></member>
+    <member refid="group__dxl2__link_1ga36d609f1afd6827e3acca76ecce4e478" kind="function"><name>dxl2_link_invalid_packets</name></member>
+  </compound>
+  <compound refid="group__dxl2__protocol" kind="group"><name>dxl2_protocol</name>
+    <member refid="group__dxl2__protocol_1gaa4decaae4fb141106641431bcc78ecd3" kind="function"><name>dxl2_crc16</name></member>
+    <member refid="group__dxl2__protocol_1ga2d741ee63032e718403940097699ab55" kind="function"><name>dxl2_parser_init</name></member>
+    <member refid="group__dxl2__protocol_1ga6de3bf6f32879dad192cb8c37772eaf9" kind="function"><name>dxl2_parser_feed</name></member>
+    <member refid="group__dxl2__protocol_1ga65eb92a7f413793741f5184b8a57c23a" kind="function"><name>dxl2_encode</name></member>
+    <member refid="group__dxl2__protocol_1gaf01af48f49e4ef7cd87e890f679e356d" kind="define"><name>DXL2_MAX_PARAMETER_SIZE</name></member>
+    <member refid="group__dxl2__protocol_1ga540d5dd9c587d474e122210e477e46cb" kind="define"><name>DXL2_PARSE_ERROR</name></member>
+  </compound>
+  <compound refid="dir_bfccd401955b95cf8c75461437045ac0" kind="dir"><name>inc</name>
+  </compound>
+  <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>src</name>
+  </compound>
+</doxygenindex>

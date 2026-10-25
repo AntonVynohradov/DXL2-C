@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="group__dxl2__config" kind="group">
+    <compoundname>dxl2_config</compoundname>
+    <title>Configuration</title>
+    <sectiondef kind="user-defined">
+      <header>Defines and macros</header>
+      <memberdef kind="define" id="group__dxl2__config_1ga668d14fe97878bd22dccbd6508ed916b" prot="public" static="no">
+        <name>DXL2_MAX_PACKET_SIZE</name>
+        <initializer>256U</initializer>
+        <briefdescription>
+<para>Maximum complete wire-packet size, including header and CRC, in bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Sizes the parser buffer, the decoded packet and the link transmit buffer, so it directly drives the RAM footprint of one link. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_config.h" line="63" column="9" bodyfile="inc/dxl2_config.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Build-time configuration for DXL2. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Every parameter can be overridden by the integrator with a compiler definition (for example <computeroutput>-DDXL2_MAX_PACKET_SIZE=1024U</computeroutput>) without editing this file.</para>
+<para><simplesect kind="par"><title>Configuration elements in this group:</title><para><itemizedlist>
+<listitem><para><ref refid="group__dxl2__config_1ga668d14fe97878bd22dccbd6508ed916b" kindref="member">DXL2_MAX_PACKET_SIZE</ref> : largest wire packet the parser and encoder accept. </para>
+</listitem>
+</itemizedlist>
+</para>
+</simplesect>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

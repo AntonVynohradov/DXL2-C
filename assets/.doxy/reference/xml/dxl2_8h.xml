@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dxl2_8h" kind="file" language="C++">
+    <compoundname>dxl2.h</compoundname>
+    <includes refid="dxl2__config_8h" local="yes">dxl2_config.h</includes>
+    <includes refid="dxl2__defs_8h" local="yes">dxl2_defs.h</includes>
+    <includes refid="dxl2__protocol_8h" local="yes">dxl2_protocol.h</includes>
+    <includes refid="dxl2__link_8h" local="yes">dxl2_link.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>dxl2.h</label>
+        <link refid="dxl2_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>dxl2_config.h</label>
+        <link refid="dxl2__config_8h"/>
+      </node>
+      <node id="3">
+        <label>dxl2_defs.h</label>
+        <link refid="dxl2__defs_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>dxl2_link.h</label>
+        <link refid="dxl2__link_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>dxl2_protocol.h</label>
+        <link refid="dxl2__protocol_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>stddef.h</label>
+      </node>
+      <node id="4">
+        <label>stdint.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="user-defined">
+      <header>Library version</header>
+      <description><para>Normally injected by cmake/version.cmake from the Git tag; the values below apply to builds that do not use CMake. </para>
+</description>
+      <member refid="group__dxl2_1ga8fc58296463290d52cedadb1f61d899f" kind="define"><name>DXL2_VERSION_MAJOR</name></member>
+      <member refid="group__dxl2_1gae052ee2023449fa082608e8d75a554e6" kind="define"><name>DXL2_VERSION_MINOR</name></member>
+      <member refid="group__dxl2_1gabb95730f88722cb6c9bf7dfa3894aebe" kind="define"><name>DXL2_VERSION_PATCH</name></member>
+      <member refid="group__dxl2_1gad246a7468d3367af2a1bcb858a977faf" kind="define"><name>DXL2_VERSION</name></member>
+    </sectiondef>
+    <briefdescription>
+<para>Umbrella header of the DYNAMIXEL Protocol 2.0 library. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Project: DXL2-C - Hardware-Agnostic DYNAMIXEL Protocol 2.0 Library Author: Anton Vynohradov Email: <ulink url="mailto:avynohradov@systemfromscratch.com">avynohradov@systemfromscratch.com</ulink></para>
+<para><simplesect kind="copyright"><para>Copyright (c) 2026 Anton Vynohradov @license Apache License 2.0</para>
+</simplesect>
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use this file except in compliance with the License. You may obtain a copy of the License at <verbatim>http://www.apache.org/licenses/LICENSE-2.0
+</verbatim> Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</para>
+<para>SPDX-License-Identifier: Apache-2.0 </para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DXL2_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="dxl2__config_8h" kindref="compound">dxl2_config.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="dxl2__defs_8h" kindref="compound">dxl2_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="dxl2__protocol_8h" kindref="compound">dxl2_protocol.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="dxl2__link_8h" kindref="compound">dxl2_link.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DXL2_VERSION_MAJOR</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_VERSION_MAJOR<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DXL2_VERSION_MINOR</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_VERSION_MINOR<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DXL2_VERSION_PATCH</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_VERSION_PATCH<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DXL2_VERSION</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="group__dxl2_1gad246a7468d3367af2a1bcb858a977faf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_VERSION<sp/>&quot;1.0.0&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>DXL2_H<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="dxl2.h"/>
+  </compounddef>
+</doxygen>

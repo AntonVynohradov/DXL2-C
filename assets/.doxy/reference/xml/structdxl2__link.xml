@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structdxl2__link" kind="struct" language="C++" prot="public">
+    <compoundname>dxl2_link</compoundname>
+    <includes refid="dxl2__link_8h" local="no">dxl2_link.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdxl2__link_1adaf8d06ec0b3a838b09963876b5a55b1" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structdxl2__link__config" kindref="compound">dxl2_link_config</ref></type>
+        <definition>struct dxl2_link_config dxl2_link::config</definition>
+        <argsstring></argsstring>
+        <name>config</name>
+        <qualifiedname>dxl2_link::config</qualifiedname>
+        <briefdescription>
+<para>Copy of the configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="106" column="27" bodyfile="inc/dxl2_link.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__link_1a1b531e6aa955c777e41d035ca0e4dc7e" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structdxl2__parser" kindref="compound">dxl2_parser</ref></type>
+        <definition>struct dxl2_parser dxl2_link::parser</definition>
+        <argsstring></argsstring>
+        <name>parser</name>
+        <qualifiedname>dxl2_link::parser</qualifiedname>
+        <briefdescription>
+<para>Receive stream parser. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="107" column="22" bodyfile="inc/dxl2_link.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__link_1a10d3db689519645e2c6fe1eafb1cfbd0" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structdxl2__packet" kindref="compound">dxl2_packet</ref></type>
+        <definition>struct dxl2_packet dxl2_link::packet</definition>
+        <argsstring></argsstring>
+        <name>packet</name>
+        <qualifiedname>dxl2_link::packet</qualifiedname>
+        <briefdescription>
+<para>Last decoded packet. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="108" column="22" bodyfile="inc/dxl2_link.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__link_1ab949179c9bf8581b51bfbf67344ed028" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t dxl2_link::rx_packets</definition>
+        <argsstring></argsstring>
+        <name>rx_packets</name>
+        <qualifiedname>dxl2_link::rx_packets</qualifiedname>
+        <briefdescription>
+<para>Valid packets received. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="109" column="14" bodyfile="inc/dxl2_link.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdxl2__link_1ae100e8191f059ceb912db690e8203b7b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t dxl2_link::invalid_packets</definition>
+        <argsstring></argsstring>
+        <name>invalid_packets</name>
+        <qualifiedname>dxl2_link::invalid_packets</qualifiedname>
+        <briefdescription>
+<para>Malformed or CRC-invalid packets rejected. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="inc/dxl2_link.h" line="110" column="14" bodyfile="inc/dxl2_link.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Link state. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Treat the members as private; use the functions below. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>dxl2_link</label>
+        <link refid="structdxl2__link"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>config</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>parser</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>packet</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>dxl2_link_config</label>
+        <link refid="structdxl2__link__config"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>handler</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>dxl2_packet</label>
+        <link refid="structdxl2__packet"/>
+      </node>
+      <node id="4">
+        <label>dxl2_parser</label>
+        <link refid="structdxl2__parser"/>
+      </node>
+    </collaborationgraph>
+    <location file="inc/dxl2_link.h" line="104" column="1" bodyfile="inc/dxl2_link.h" bodystart="105" bodyend="111"/>
+    <listofallmembers>
+      <member refid="structdxl2__link_1adaf8d06ec0b3a838b09963876b5a55b1" prot="public" virt="non-virtual"><scope>dxl2_link</scope><name>config</name></member>
+      <member refid="structdxl2__link_1ae100e8191f059ceb912db690e8203b7b" prot="public" virt="non-virtual"><scope>dxl2_link</scope><name>invalid_packets</name></member>
+      <member refid="structdxl2__link_1a10d3db689519645e2c6fe1eafb1cfbd0" prot="public" virt="non-virtual"><scope>dxl2_link</scope><name>packet</name></member>
+      <member refid="structdxl2__link_1a1b531e6aa955c777e41d035ca0e4dc7e" prot="public" virt="non-virtual"><scope>dxl2_link</scope><name>parser</name></member>
+      <member refid="structdxl2__link_1ab949179c9bf8581b51bfbf67344ed028" prot="public" virt="non-virtual"><scope>dxl2_link</scope><name>rx_packets</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

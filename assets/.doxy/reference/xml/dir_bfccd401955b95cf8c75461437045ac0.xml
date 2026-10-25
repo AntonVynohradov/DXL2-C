@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_bfccd401955b95cf8c75461437045ac0" kind="dir">
+    <compoundname>inc</compoundname>
+    <innerfile refid="dxl2__config_8h">dxl2_config.h</innerfile>
+    <innerfile refid="dxl2__defs_8h">dxl2_defs.h</innerfile>
+    <innerfile refid="dxl2__link_8h">dxl2_link.h</innerfile>
+    <innerfile refid="dxl2__protocol_8h">dxl2_protocol.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="inc/"/>
+  </compounddef>
+</doxygen>

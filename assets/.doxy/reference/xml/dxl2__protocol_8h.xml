@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dxl2__protocol_8h" kind="file" language="C++">
+    <compoundname>dxl2_protocol.h</compoundname>
+    <includes local="no">stddef.h</includes>
+    <includes local="no">stdint.h</includes>
+    <includes refid="dxl2__config_8h" local="yes">dxl2_config.h</includes>
+    <includedby refid="dxl2_8h" local="yes">dxl2.h</includedby>
+    <includedby refid="dxl2__link_8h" local="yes">inc/dxl2_link.h</includedby>
+    <includedby refid="dxl2__protocol_8c" local="yes">src/dxl2_protocol.c</includedby>
+    <incdepgraph>
+      <node id="4">
+        <label>dxl2_config.h</label>
+        <link refid="dxl2__config_8h"/>
+      </node>
+      <node id="1">
+        <label>inc/dxl2_protocol.h</label>
+        <link refid="dxl2__protocol_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stddef.h</label>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>dxl2.h</label>
+        <link refid="dxl2_8h"/>
+      </node>
+      <node id="3">
+        <label>inc/dxl2_link.h</label>
+        <link refid="dxl2__link_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>inc/dxl2_protocol.h</label>
+        <link refid="dxl2__protocol_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structdxl2__packet" prot="public">dxl2_packet</innerclass>
+    <innerclass refid="structdxl2__parser" prot="public">dxl2_parser</innerclass>
+    <sectiondef kind="user-defined">
+      <header>Packet limits and errors</header>
+      <member refid="group__dxl2__protocol_1gaf01af48f49e4ef7cd87e890f679e356d" kind="define"><name>DXL2_MAX_PARAMETER_SIZE</name></member>
+      <member refid="group__dxl2__protocol_1ga540d5dd9c587d474e122210e477e46cb" kind="define"><name>DXL2_PARSE_ERROR</name></member>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>CRC and packet parsing</header>
+      <member refid="group__dxl2__protocol_1gaa4decaae4fb141106641431bcc78ecd3" kind="function"><name>dxl2_crc16</name></member>
+      <member refid="group__dxl2__protocol_1ga2d741ee63032e718403940097699ab55" kind="function"><name>dxl2_parser_init</name></member>
+      <member refid="group__dxl2__protocol_1ga6de3bf6f32879dad192cb8c37772eaf9" kind="function"><name>dxl2_parser_feed</name></member>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Packet encoding</header>
+      <member refid="group__dxl2__protocol_1ga65eb92a7f413793741f5184b8a57c23a" kind="function"><name>dxl2_encode</name></member>
+    </sectiondef>
+    <briefdescription>
+<para>DYNAMIXEL Protocol 2.0 packet encoding, parsing, and CRC helpers. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Project: DXL2-C - Hardware-Agnostic DYNAMIXEL Protocol 2.0 Library Author: Anton Vynohradov Email: <ulink url="mailto:avynohradov@systemfromscratch.com">avynohradov@systemfromscratch.com</ulink></para>
+<para><simplesect kind="copyright"><para>Copyright (c) 2026 Anton Vynohradov @license Apache License 2.0</para>
+</simplesect>
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use this file except in compliance with the License. You may obtain a copy of the License at <verbatim>http://www.apache.org/licenses/LICENSE-2.0
+</verbatim> Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</para>
+<para>SPDX-License-Identifier: Apache-2.0 </para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DXL2_PROTOCOL_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_PROTOCOL_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="dxl2__config_8h" kindref="compound">dxl2_config.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="group__dxl2__protocol_1gaf01af48f49e4ef7cd87e890f679e356d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_MAX_PARAMETER_SIZE<sp/>(DXL2_MAX_PACKET_SIZE<sp/>-<sp/>10U)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="group__dxl2__protocol_1ga540d5dd9c587d474e122210e477e46cb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_PARSE_ERROR<sp/>(-1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="structdxl2__packet" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdxl2__packet" kindref="compound">dxl2_packet</ref></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80" refid="structdxl2__packet_1a8dabcc8a048479a5630e153eb7f26e84" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structdxl2__packet_1a8dabcc8a048479a5630e153eb7f26e84" kindref="member">id</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="structdxl2__packet_1a949ee642de0b9d15927b265256445aff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structdxl2__packet_1a949ee642de0b9d15927b265256445aff" kindref="member">instruction</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="structdxl2__packet_1a11cb6cde86a1a303f0917e3aa434e77b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structdxl2__packet_1a11cb6cde86a1a303f0917e3aa434e77b" kindref="member">parameter_length</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="structdxl2__packet_1a43c434f279dc493a73bcd1d8607bf9df" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structdxl2__packet_1a43c434f279dc493a73bcd1d8607bf9df" kindref="member">parameters</ref>[<ref refid="group__dxl2__protocol_1gaf01af48f49e4ef7cd87e890f679e356d" kindref="member">DXL2_MAX_PARAMETER_SIZE</ref>];<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="structdxl2__parser" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdxl2__parser" kindref="compound">dxl2_parser</ref></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94" refid="structdxl2__parser_1abaf389058b250ee8611702865fda49b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structdxl2__parser_1abaf389058b250ee8611702865fda49b9" kindref="member">buffer</ref>[<ref refid="group__dxl2__config_1ga668d14fe97878bd22dccbd6508ed916b" kindref="member">DXL2_MAX_PACKET_SIZE</ref>];<sp/></highlight></codeline>
+<codeline lineno="95" refid="structdxl2__parser_1ad48686741132fec2e618205604b44e7b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structdxl2__parser_1ad48686741132fec2e618205604b44e7b" kindref="member">length</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal">uint16_t<sp/><ref refid="group__dxl2__protocol_1gaa4decaae4fb141106641431bcc78ecd3" kindref="member">dxl2_crc16</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t*<sp/>data,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dxl2__protocol_1ga2d741ee63032e718403940097699ab55" kindref="member">dxl2_parser_init</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structdxl2__parser" kindref="compound">dxl2_parser</ref>*<sp/>parser);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dxl2__protocol_1ga6de3bf6f32879dad192cb8c37772eaf9" kindref="member">dxl2_parser_feed</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structdxl2__parser" kindref="compound">dxl2_parser</ref>*<sp/>parser,<sp/>uint8_t<sp/></highlight><highlight class="keywordtype">byte</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structdxl2__packet" kindref="compound">dxl2_packet</ref>*<sp/>packet);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dxl2__protocol_1ga65eb92a7f413793741f5184b8a57c23a" kindref="member">dxl2_encode</ref>(uint8_t<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/>uint8_t<sp/>instruction,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t*<sp/>parameters,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>parameter_length,<sp/>uint8_t*<sp/>output,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>output_capacity,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">*<sp/>output_length);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>DXL2_PROTOCOL_H<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="inc/dxl2_protocol.h"/>
+  </compounddef>
+</doxygen>
