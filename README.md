@@ -1,3 +1,16 @@
+<p align="center">
+  <a href="https://antonvynohradov.github.io/DXL2-C/">
+    <img src="docs/assets/images/readme-banner.svg" alt="DXL2-C: DYNAMIXEL Protocol 2.0 in portable C — no heap, no RTOS, MISRA C:2012, 100 % coverage" width="100%">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://antonvynohradov.github.io/DXL2-C/"><b>Documentation</b></a> ·
+  <a href="https://antonvynohradov.github.io/DXL2-C/downloads/DXL2-C_User_Manual.pdf"><b>PDF user manual</b></a> ·
+  <a href="https://github.com/AntonVynohradov/DXL2-C/releases"><b>Releases</b></a> ·
+  <a href="CHANGELOG.md"><b>Changelog</b></a>
+</p>
+
 # DXL2-C: Hardware-Agnostic DYNAMIXEL Protocol 2.0 Library
 
 [![Build Static Library](https://github.com/AntonVynohradov/dxl2-c/actions/workflows/build-static-lib.yml/badge.svg)](https://github.com/AntonVynohradov/dxl2-c/actions/workflows/build-static-lib.yml)

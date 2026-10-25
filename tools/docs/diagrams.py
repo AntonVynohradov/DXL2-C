@@ -248,22 +248,45 @@ def bus_topology() -> None:
     s.save(OUT + "/bus-topology.svg")
 
 
-def logo() -> None:
+def readme_banner() -> None:
+    """README banner: the website hero (text + hero-3d.svg) on its own dark background,
+    so it reads the same on GitHub's light and dark themes."""
+    w, h = 1280, 520
+    font = "Inter, 'Segoe UI', Helvetica, Arial, sans-serif"
+    with open(os.path.join(OUT, "hero-3d.svg"), encoding="utf-8") as f:
+        hero = f.read()
+    # Nest the hero scene as an inner <svg> placed on the right half
+    hero = hero.replace('width="683" height="468"', 'x="560" y="26" width="700" height="480"', 1)
     parts = [
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" '
-        'role="img" aria-label="DXL2-C">',
-        "<title>DXL2-C</title>",
-        f'<rect x="2" y="2" width="60" height="60" rx="14" fill="{NAVY}"/>',
-        f'<circle cx="32" cy="32" r="17" fill="none" stroke="{WHITE}" stroke-width="4"/>',
-        f'<circle cx="32" cy="32" r="5" fill="{WHITE}"/>',
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" '
+        f'height="{h}" role="img" aria-label="DXL2-C: DYNAMIXEL Protocol 2.0 in portable C">',
+        "<title>DXL2-C: DYNAMIXEL Protocol 2.0 in portable C</title>",
+        '<defs><radialGradient id="bannerGlow" cx="72%" cy="62%" r="55%">'
+        '<stop offset="0" stop-color="#1a6fe0" stop-opacity="0.32"/>'
+        '<stop offset="1" stop-color="#1a6fe0" stop-opacity="0"/></radialGradient>'
+        '<linearGradient id="bannerBg" x1="0" y1="0" x2="0" y2="1">'
+        '<stop offset="0" stop-color="#050b16"/><stop offset="1" stop-color="#071122"/>'
+        '</linearGradient></defs>',
+        f'<rect width="{w}" height="{h}" rx="18" fill="url(#bannerBg)"/>',
+        f'<rect width="{w}" height="{h}" rx="18" fill="url(#bannerGlow)"/>',
+        f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" rx="18" fill="none" '
+        f'stroke="#15294a"/>',
+        f'<text x="64" y="118" font-family="{font}" font-size="17" font-weight="700" '
+        f'letter-spacing="3" fill="#2f8cff">OPEN-SOURCE EMBEDDED LIBRARY</text>',
     ]
-    for dx, dy in ((0, -11), (11, 0), (0, 11), (-11, 0)):
-        parts.append(f'<circle cx="{32 + dx}" cy="{32 + dy}" r="2.4" fill="#5FD3DE"/>')
-    parts.append(f'<path d="M6,52 L16,52 L20,46 L24,58 L28,52 L58,52" fill="none" '
-                 f'stroke="#5FD3DE" stroke-width="3" stroke-linejoin="round" '
-                 f'stroke-linecap="round"/>')
-    parts.append("</svg>")
-    path = os.path.join(OUT, "logo.svg")
+    for y, line, color in ((196, "DYNAMIXEL", "#e6edf7"), (264, "PROTOCOL 2.0", "#e6edf7"),
+                           (332, "IN PORTABLE C", "#2f8cff")):
+        parts.append(f'<text x="60" y="{y}" font-family="{font}" font-size="64" '
+                     f'font-weight="800" fill="{color}">{line}</text>')
+    parts += [
+        '<rect x="64" y="368" width="150" height="3" rx="1.5" fill="#2f8cff" opacity="0.5"/>',
+        '<circle cx="128" cy="369.5" r="5" fill="#2f8cff"/>',
+        f'<text x="64" y="420" font-family="{font}" font-size="19" fill="#9aabc4">'
+        "No heap · No RTOS · MISRA C:2012 · 100 % coverage</text>",
+        hero,
+        "</svg>",
+    ]
+    path = os.path.join(OUT, "readme-banner.svg")
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(parts) + "\n")
     print("wrote", os.path.relpath(path))
@@ -274,13 +297,13 @@ def main() -> None:
     hero_scene(os.path.join(OUT, "hero-3d.svg"), chip_label="DXL2-C",
                chip_sub="Protocol 2.0", transceiver="RS-485",
                devices=["ID 1", "ID 2", "ID 3"], device_style="servo")
+    readme_banner()
     packet_structure()
     byte_stuffing()
     architecture()
     data_flow()
     parser_flow()
     bus_topology()
-    logo()
 
 
 if __name__ == "__main__":

@@ -44,8 +44,8 @@ theme:
   name: material
   custom_dir: overrides
   language: en
-  logo: assets/images/logo.svg
-  favicon: assets/images/logo.svg
+  logo: assets/images/brand/systemfromscratch-logo-on-dark.png
+  favicon: assets/images/brand/systemfromscratch-logo.png
   font:
     text: Inter
     code: JetBrains Mono
@@ -220,7 +220,8 @@ extra:
     version_header: dxl2.h
     version_macro: DXL2_VERSION
     output: build/manual/DXL2-C_User_Manual_v{version}.pdf
-    cover_image: assets/images/bus-topology.svg
+    eyebrow: Open-source embedded library
+    cover_image: assets/images/hero-3d.svg
     appendices: [changelog.md, LICENSE.md]
     unnumbered: [about.md]
     web_only: [index.md, reference/]
