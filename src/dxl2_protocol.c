@@ -34,6 +34,7 @@
 #include <stdbool.h>
 #include <string.h>
 
+#include "dxl2_defs.h"
 #include "dxl2_protocol.h"
 
 /* ==============================================================================
@@ -86,41 +87,47 @@ static void dxl2_parser_reset(struct dxl2_parser* parser)
     parser->length = 0U;
 }
 
-/* CRC is checked over the stuffed wire bytes before byte stuffing is removed. */
+/*
+ * CRC is checked over the stuffed wire bytes before byte stuffing is removed.
+ * The parser accepts at most DXL2_MAX_PACKET_SIZE wire bytes, 10 of which are
+ * header, ID, Length, instruction and CRC, and unstuffing only removes bytes,
+ * so the decoded parameters always fit in DXL2_MAX_PARAMETER_SIZE.
+ */
 static int dxl2_decode_packet(const struct dxl2_parser* parser, struct dxl2_packet* packet,
                               size_t total_length)
 {
     const size_t crc_offset = total_length - DXL2_CRC_SIZE;
     const uint16_t expected_crc = dxl2_crc16(parser->buffer, crc_offset);
-    const uint16_t received_crc =
-        (uint16_t) parser->buffer[crc_offset] | ((uint16_t) parser->buffer[crc_offset + 1U] << 8);
-    bool has_instruction = false;
+    const uint16_t received_crc = dxl2_get_u16(&parser->buffer[crc_offset]);
+    bool valid = (expected_crc == received_crc);
     size_t offset = DXL2_BODY_OFFSET;
+    size_t body_length = 0U; /* Unstuffed instruction and parameter bytes. */
 
-    if (expected_crc != received_crc)
+    if (valid)
     {
-        return DXL2_PARSE_ERROR;
+        packet->id = parser->buffer[4];
     }
 
-    packet->id = parser->buffer[4];
-    packet->parameter_length = 0U;
-
-    while (offset < crc_offset)
+    while (valid && (offset < crc_offset))
     {
         uint8_t decoded[3];
         size_t decoded_count = 1U;
 
         decoded[0] = parser->buffer[offset];
-        if (offset + 2U < crc_offset && decoded[0] == 0xFFU && parser->buffer[offset + 1U] == 0xFFU
-            && parser->buffer[offset + 2U] == 0xFDU)
+        if (((offset + 2U) < crc_offset) && (decoded[0] == 0xFFU)
+            && (parser->buffer[offset + 1U] == 0xFFU) && (parser->buffer[offset + 2U] == 0xFDU))
         {
-            if (offset + 3U >= crc_offset || parser->buffer[offset + 3U] != 0xFDU)
+            if (((offset + 3U) < crc_offset) && (parser->buffer[offset + 3U] == 0xFDU))
             {
-                return DXL2_PARSE_ERROR;
+                decoded[1] = 0xFFU;
+                decoded[2] = 0xFDU;
+                decoded_count = 3U;
             }
-            decoded[1] = 0xFFU;
-            decoded[2] = 0xFDU;
-            decoded_count = 3U;
+            else
+            {
+                valid = false;
+                decoded_count = 0U;
+            }
             offset += 4U;
         }
         else
@@ -130,23 +137,24 @@ static int dxl2_decode_packet(const struct dxl2_parser* parser, struct dxl2_pack
 
         for (size_t i = 0U; i < decoded_count; ++i)
         {
-            if (!has_instruction)
+            if (body_length == 0U)
             {
                 packet->instruction = decoded[i];
-                has_instruction = true;
             }
             else
             {
-                if (packet->parameter_length >= DXL2_MAX_PARAMETER_SIZE)
-                {
-                    return DXL2_PARSE_ERROR;
-                }
-                packet->parameters[packet->parameter_length++] = decoded[i];
+                packet->parameters[body_length - 1U] = decoded[i];
             }
+            body_length++;
         }
     }
 
-    return has_instruction ? 1 : DXL2_PARSE_ERROR;
+    if (valid)
+    {
+        packet->parameter_length = (uint16_t) (body_length - 1U);
+    }
+
+    return valid ? 1 : DXL2_PARSE_ERROR;
 }
 
 /* ==============================================================================
@@ -157,12 +165,22 @@ uint16_t dxl2_crc16(const uint8_t* data, size_t length)
 {
     uint16_t crc = 0U;
 
-    for (size_t i = 0U; i < length; ++i)
+    if (data != NULL)
     {
-        crc ^= (uint16_t) data[i] << 8;
-        for (uint8_t bit = 0U; bit < 8U; ++bit)
+        for (size_t i = 0U; i < length; ++i)
         {
-            crc = (crc & 0x8000U) != 0U ? (uint16_t) ((crc << 1) ^ 0x8005U) : (uint16_t) (crc << 1);
+            crc ^= (uint16_t) ((uint16_t) data[i] << 8);
+            for (uint8_t bit = 0U; bit < 8U; ++bit)
+            {
+                if ((crc & 0x8000U) != 0U)
+                {
+                    crc = (uint16_t) ((uint16_t) (crc << 1) ^ 0x8005U);
+                }
+                else
+                {
+                    crc = (uint16_t) (crc << 1);
+                }
+            }
         }
     }
 
@@ -179,47 +197,50 @@ void dxl2_parser_init(struct dxl2_parser* parser)
 
 int dxl2_parser_feed(struct dxl2_parser* parser, uint8_t byte, struct dxl2_packet* packet)
 {
-    uint16_t length_field;
-    size_t total_length;
-    int result;
+    int result = 0;
 
-    if (parser == NULL || packet == NULL || parser->length >= DXL2_MAX_PACKET_SIZE)
+    if ((parser == NULL) || (packet == NULL) || (parser->length >= DXL2_MAX_PACKET_SIZE))
     {
         if (parser != NULL)
         {
             dxl2_parser_reset(parser);
         }
-        return DXL2_PARSE_ERROR;
+        result = DXL2_PARSE_ERROR;
     }
-
-    parser->buffer[parser->length++] = byte;
-    while (parser->length >= DXL2_HEADER_SIZE
-           && memcmp(parser->buffer, dxl2_header, DXL2_HEADER_SIZE) != 0)
+    else
     {
-        memmove(parser->buffer, parser->buffer + 1, --parser->length);
+        parser->buffer[parser->length] = byte;
+        parser->length++;
+        while ((parser->length >= DXL2_HEADER_SIZE)
+               && (memcmp(parser->buffer, dxl2_header, DXL2_HEADER_SIZE) != 0))
+        {
+            parser->length--;
+            (void) memmove(&parser->buffer[0], &parser->buffer[1], parser->length);
+        }
+
+        if (parser->length >= (DXL2_LENGTH_OFFSET + 2U))
+        {
+            const uint16_t length_field = dxl2_get_u16(&parser->buffer[DXL2_LENGTH_OFFSET]);
+
+            if ((length_field < DXL2_MIN_LENGTH)
+                || (length_field > (DXL2_MAX_PACKET_SIZE - DXL2_BODY_OFFSET)))
+            {
+                dxl2_parser_reset(parser);
+                result = DXL2_PARSE_ERROR;
+            }
+            else if (parser->length >= ((size_t) length_field + DXL2_BODY_OFFSET))
+            {
+                result =
+                    dxl2_decode_packet(parser, packet, (size_t) length_field + DXL2_BODY_OFFSET);
+                dxl2_parser_reset(parser);
+            }
+            else
+            {
+                /* Packet incomplete: wait for more bytes. */
+            }
+        }
     }
 
-    if (parser->length < DXL2_LENGTH_OFFSET + 2U)
-    {
-        return 0;
-    }
-
-    length_field = (uint16_t) parser->buffer[DXL2_LENGTH_OFFSET]
-                   | ((uint16_t) parser->buffer[DXL2_LENGTH_OFFSET + 1U] << 8);
-    if (length_field < DXL2_MIN_LENGTH || length_field > DXL2_MAX_PACKET_SIZE - DXL2_BODY_OFFSET)
-    {
-        dxl2_parser_reset(parser);
-        return DXL2_PARSE_ERROR;
-    }
-
-    total_length = (size_t) length_field + DXL2_BODY_OFFSET;
-    if (parser->length < total_length)
-    {
-        return 0;
-    }
-
-    result = dxl2_decode_packet(parser, packet, total_length);
-    dxl2_parser_reset(parser);
     return result;
 }
 
@@ -227,48 +248,58 @@ int dxl2_encode(uint8_t id, uint8_t instruction, const uint8_t* parameters,
                 uint16_t parameter_length, uint8_t* output, size_t output_capacity,
                 size_t* output_length)
 {
-    size_t write_offset = DXL2_BODY_OFFSET;
     const size_t body_start = DXL2_BODY_OFFSET;
     const size_t body_length = (size_t) parameter_length + 1U;
-    uint16_t length_field;
-    uint16_t crc;
+    int result = DXL2_PARSE_ERROR;
 
-    if (output == NULL || output_length == NULL || (parameter_length != 0U && parameters == NULL)
-        || parameter_length > DXL2_MAX_PARAMETER_SIZE || output_capacity < 10U)
+    if ((output != NULL) && (output_length != NULL)
+        && ((parameter_length == 0U) || (parameters != NULL))
+        && (parameter_length <= DXL2_MAX_PARAMETER_SIZE) && (output_capacity >= 10U))
     {
-        return DXL2_PARSE_ERROR;
-    }
+        size_t write_offset = DXL2_BODY_OFFSET;
+        bool fits = true;
 
-    memcpy(output, dxl2_header, sizeof(dxl2_header));
-    output[4] = id;
+        (void) memcpy(output, dxl2_header, sizeof(dxl2_header));
+        output[4] = id;
 
-    for (size_t i = 0U; i < body_length; ++i)
-    {
-        uint8_t value = i == 0U ? instruction : parameters[i - 1U];
-
-        if (write_offset + 1U > output_capacity - DXL2_CRC_SIZE)
+        for (size_t i = 0U; fits && (i < body_length); ++i)
         {
-            return DXL2_PARSE_ERROR;
-        }
-        output[write_offset++] = value;
-        if (write_offset - body_start >= 3U && output[write_offset - 3U] == 0xFFU
-            && output[write_offset - 2U] == 0xFFU && output[write_offset - 1U] == 0xFDU)
-        {
-            if (write_offset + 1U > output_capacity - DXL2_CRC_SIZE)
+            const uint8_t value = (i == 0U) ? instruction : parameters[i - 1U];
+
+            if ((write_offset + 1U) > (output_capacity - DXL2_CRC_SIZE))
             {
-                return DXL2_PARSE_ERROR;
+                fits = false;
             }
-            output[write_offset++] = 0xFDU;
+            else
+            {
+                output[write_offset] = value;
+                write_offset++;
+                if (((write_offset - body_start) >= 3U) && (output[write_offset - 3U] == 0xFFU)
+                    && (output[write_offset - 2U] == 0xFFU) && (output[write_offset - 1U] == 0xFDU))
+                {
+                    if ((write_offset + 1U) > (output_capacity - DXL2_CRC_SIZE))
+                    {
+                        fits = false;
+                    }
+                    else
+                    {
+                        output[write_offset] = 0xFDU;
+                        write_offset++;
+                    }
+                }
+            }
+        }
+
+        if (fits)
+        {
+            const uint16_t length_field = (uint16_t) ((write_offset - body_start) + DXL2_CRC_SIZE);
+
+            dxl2_put_u16(&output[DXL2_LENGTH_OFFSET], length_field);
+            dxl2_put_u16(&output[write_offset], dxl2_crc16(output, write_offset));
+            *output_length = write_offset + DXL2_CRC_SIZE;
+            result = 0;
         }
     }
 
-    length_field = (uint16_t) (write_offset - body_start + DXL2_CRC_SIZE);
-    output[DXL2_LENGTH_OFFSET] = (uint8_t) (length_field & 0xFFU);
-    output[DXL2_LENGTH_OFFSET + 1U] = (uint8_t) (length_field >> 8);
-    crc = dxl2_crc16(output, write_offset);
-    output[write_offset++] = (uint8_t) (crc & 0xFFU);
-    output[write_offset++] = (uint8_t) (crc >> 8);
-    *output_length = write_offset;
-
-    return 0;
+    return result;
 }

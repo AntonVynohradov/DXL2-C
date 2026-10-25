@@ -36,6 +36,14 @@
                 "CMAKE_BUILD_TYPE": "Debug",
                 "DXL2_INTEGRATION_TESTS": "ON"
             }
+        },
+        {
+            "name": "DXL2[Examples]",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "DXL2_EXAMPLES": "ON"
+            }
         }
     ]
 }

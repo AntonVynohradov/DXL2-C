@@ -63,6 +63,14 @@
 #define DXL2_MAX_PACKET_SIZE 256U
 #endif
 
+/*
+ * The smallest packet (no parameters) is 10 bytes. The Length field is 16 bits
+ * and counts everything after it, so a packet never exceeds 65535 + 7 bytes.
+ */
+#if (DXL2_MAX_PACKET_SIZE < 10U) || (DXL2_MAX_PACKET_SIZE > 65542U)
+#error "DXL2_MAX_PACKET_SIZE must be in the range 10..65542"
+#endif
+
 /** @} */
 
 #endif /* DXL2_CONFIG_H */

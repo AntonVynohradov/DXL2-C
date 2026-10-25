@@ -1,0 +1,14 @@
+/*
+ * Copy to boards/<board>.overlay and point dxl2,uart at the UART wired to the
+ * DYNAMIXEL bus (through a half-duplex transceiver). Do not use the console UART.
+ */
+/ {
+	chosen {
+		dxl2,uart = &uart1;
+	};
+};
+
+&uart1 {
+	status = "okay";
+	current-speed = <57600>;
+};

@@ -29,3 +29,12 @@ jobs:
 
       - name: Build
         run: cmake --build "build/DXL2[Release]"
+
+      - name: Configure (Examples preset)
+        run: cmake --preset "DXL2[Examples]" -B "build/DXL2[Examples]"
+
+      - name: Build examples
+        run: cmake --build "build/DXL2[Examples]"
+
+      - name: Run bare-metal example on the simulated board
+        run: ctest --test-dir "build/DXL2[Examples]" -L example --output-on-failure

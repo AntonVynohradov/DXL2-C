@@ -105,9 +105,9 @@ struct dxl2_parser
  *
  * @details Uses polynomial 0x8005 and an initial CRC value of zero.
  *
- * @param data Bytes covered by the CRC; may be NULL only when @p length is zero.
+ * @param data Bytes covered by the CRC.
  * @param length Number of bytes to process.
- * @return Calculated 16-bit CRC.
+ * @return Calculated 16-bit CRC; 0 (the initial value) when @p data is NULL.
  */
 uint16_t dxl2_crc16(const uint8_t* data, size_t length);
 
@@ -127,7 +127,7 @@ void dxl2_parser_init(struct dxl2_parser* parser);
  *
  * @param parser Parser state.
  * @param byte Next byte from the input stream.
- * @param packet Output packet; updated only when a complete valid packet is found.
+ * @param packet Output packet; its contents are valid only when the call returns 1.
  * @retval 1 A complete valid packet is available in @p packet.
  * @retval 0 More bytes are required.
  * @retval DXL2_PARSE_ERROR Invalid arguments or a malformed/CRC-invalid packet.

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" width="960" height="330" role="img" aria-label="DYNAMIXEL Protocol 2.0 packet structure">
+<title>DYNAMIXEL Protocol 2.0 packet structure</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5A6472"/></marker><marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F8B9A"/></marker><marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2E7D32"/></marker></defs>
+<rect x="0" y="0" width="960" height="330" rx="12" fill="#FFFFFF"/>
+<text x="140.0" y="40" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">Header</text>
+<rect x="20.0" y="52" width="60.0" height="46" rx="4" fill="#0B2545" stroke="#FFFFFF" stroke-width="2"/>
+<text x="50.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">FF</text>
+<rect x="80.0" y="52" width="60.0" height="46" rx="4" fill="#0B2545" stroke="#FFFFFF" stroke-width="2"/>
+<text x="110.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">FF</text>
+<rect x="140.0" y="52" width="60.0" height="46" rx="4" fill="#0B2545" stroke="#FFFFFF" stroke-width="2"/>
+<text x="170.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">FD</text>
+<rect x="200.0" y="52" width="60.0" height="46" rx="4" fill="#0B2545" stroke="#FFFFFF" stroke-width="2"/>
+<text x="230.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">00</text>
+<text x="140.0" y="118" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" font-weight="normal" fill="#5A6472" text-anchor="middle">4 bytes</text>
+<text x="310.0" y="40" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" font-weight="bold" fill="#0F8B9A" text-anchor="middle">ID</text>
+<rect x="270.0" y="52" width="80.0" height="46" rx="4" fill="#0F8B9A" stroke="#FFFFFF" stroke-width="2"/>
+<text x="310.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">ID</text>
+<text x="310.0" y="118" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" font-weight="normal" fill="#5A6472" text-anchor="middle">1 byte</text>
+<text x="420.0" y="40" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" font-weight="bold" fill="#1E5AA8" text-anchor="middle">Length</text>
+<rect x="360.0" y="52" width="60.0" height="46" rx="4" fill="#1E5AA8" stroke="#FFFFFF" stroke-width="2"/>
+<text x="390.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">LEN_L</text>
+<rect x="420.0" y="52" width="60.0" height="46" rx="4" fill="#1E5AA8" stroke="#FFFFFF" stroke-width="2"/>
+<text x="450.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">LEN_H</text>
+<text x="420.0" y="118" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" font-weight="normal" fill="#5A6472" text-anchor="middle">2 bytes</text>
+<text x="540.0" y="40" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" font-weight="bold" fill="#E07A00" text-anchor="middle">Instruction</text>
+<rect x="490.0" y="52" width="100.0" height="46" rx="4" fill="#E07A00" stroke="#FFFFFF" stroke-width="2"/>
+<text x="540.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">INST</text>
+<text x="540.0" y="118" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" font-weight="normal" fill="#5A6472" text-anchor="middle">1 byte</text>
+<text x="700.0" y="40" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" font-weight="bold" fill="#5A6472" text-anchor="middle">Parameters</text>
+<rect x="600.0" y="52" width="50.0" height="46" rx="4" fill="#5A6472" stroke="#FFFFFF" stroke-width="2"/>
+<text x="625.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">P1</text>
+<rect x="650.0" y="52" width="50.0" height="46" rx="4" fill="#5A6472" stroke="#FFFFFF" stroke-width="2"/>
+<text x="675.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">P2</text>
+<rect x="700.0" y="52" width="50.0" height="46" rx="4" fill="#5A6472" stroke="#FFFFFF" stroke-width="2"/>
+<text x="725.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">…</text>
+<rect x="750.0" y="52" width="50.0" height="46" rx="4" fill="#5A6472" stroke="#FFFFFF" stroke-width="2"/>
+<text x="775.0" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Pn</text>
+<text x="700.0" y="118" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" font-weight="normal" fill="#5A6472" text-anchor="middle">0 … n bytes</text>
+<text x="875.0" y="40" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">CRC</text>
+<rect x="810.0" y="52" width="65.0" height="46" rx="4" fill="#0B2545" stroke="#FFFFFF" stroke-width="2"/>
+<text x="842.5" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">CRC_L</text>
+<rect x="875.0" y="52" width="65.0" height="46" rx="4" fill="#0B2545" stroke="#FFFFFF" stroke-width="2"/>
+<text x="907.5" y="81" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">CRC_H</text>
+<text x="875.0" y="118" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" font-weight="normal" fill="#5A6472" text-anchor="middle">2 bytes</text>
+<path d="M490,142 L490,150 L940,150 L940,142" stroke="#1E5AA8" stroke-width="1.6" fill="none"/>
+<text x="715.0" y="168" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#1E5AA8" text-anchor="middle">Length = Instruction + Parameters (after stuffing) + CRC</text>
+<path d="M20,192 L20,200 L800,200 L800,192" stroke="#0B2545" stroke-width="1.6" fill="none"/>
+<text x="410.0" y="218" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">CRC-16 (poly 0x8005) over Header … last Parameter, on the wire bytes</text>
+<text x="20" y="262" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" font-weight="bold" fill="#0B2545" text-anchor="start">Example: PING to ID 1</text>
+<rect x="20" y="274" width="240" height="36" rx="4" fill="#FFFFFF" stroke="#0B2545" stroke-width="1.5"/>
+<text x="140.0" y="298" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="normal" fill="#0B2545" text-anchor="middle">FF FF FD 00</text>
+<rect x="270" y="274" width="80" height="36" rx="4" fill="#FFFFFF" stroke="#0F8B9A" stroke-width="1.5"/>
+<text x="310.0" y="298" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="normal" fill="#0F8B9A" text-anchor="middle">01</text>
+<rect x="360" y="274" width="120" height="36" rx="4" fill="#FFFFFF" stroke="#1E5AA8" stroke-width="1.5"/>
+<text x="420.0" y="298" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="normal" fill="#1E5AA8" text-anchor="middle">03 00</text>
+<rect x="490" y="274" width="100" height="36" rx="4" fill="#FFFFFF" stroke="#E07A00" stroke-width="1.5"/>
+<text x="540.0" y="298" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="normal" fill="#E07A00" text-anchor="middle">01</text>
+<rect x="600" y="274" width="200" height="36" rx="4" fill="#FFFFFF" stroke="#5A6472" stroke-width="1.5"/>
+<text x="700.0" y="298" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="normal" fill="#5A6472" text-anchor="middle">none</text>
+<rect x="810" y="274" width="130" height="36" rx="4" fill="#FFFFFF" stroke="#0B2545" stroke-width="1.5"/>
+<text x="875.0" y="298" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="14" font-weight="normal" fill="#0B2545" text-anchor="middle">19 4E</text>
+</svg>

@@ -70,6 +70,8 @@ gtest_discover_tests(${DXL2_GTEST} PROPERTIES LABELS "unit")
 # COVERAGE
 # ==============================================================================
 
+set(DXL2_COVERAGE_MIN 100 CACHE STRING "Minimum line and branch coverage (%) required by the 'coverage' target")
+
 find_program(GCOVR_EXECUTABLE gcovr)
 if(GCOVR_EXECUTABLE)
     set(COVERAGE_OUTPUT_DIR ${CMAKE_BINARY_DIR}/Coverage)
@@ -85,6 +87,9 @@ if(GCOVR_EXECUTABLE)
             --lcov ${COVERAGE_OUTPUT_DIR}/coverage.info
             --html-details=${COVERAGE_OUTPUT_DIR}/coverage.html
             --print-summary
+            --delete                    # fresh counters for the next run
+            --fail-under-line ${DXL2_COVERAGE_MIN}
+            --fail-under-branch ${DXL2_COVERAGE_MIN}
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
         USES_TERMINAL
         )

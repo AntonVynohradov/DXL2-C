@@ -91,3 +91,44 @@ TEST(Dxl2Encode, RejectsInvalidArguments)
     EXPECT_EQ(dxl2_encode(1U, DXL2_INST_PING, nullptr, 0U, encoded, 9U, &encoded_length),
               DXL2_PARSE_ERROR);
 }
+
+/** @brief Rejects a parameter block larger than DXL2_MAX_PARAMETER_SIZE. */
+TEST(Dxl2Encode, RejectsOversizedParameters)
+{
+    static const uint8_t parameters[DXL2_MAX_PARAMETER_SIZE + 1U] = {0};
+    uint8_t encoded[DXL2_MAX_PACKET_SIZE];
+    size_t encoded_length = 0U;
+
+    EXPECT_EQ(dxl2_encode(1U, DXL2_INST_WRITE, parameters, sizeof(parameters), encoded,
+                          sizeof(encoded), &encoded_length),
+              DXL2_PARSE_ERROR);
+}
+
+/** @brief Rejects an output buffer too small for the parameters. */
+TEST(Dxl2Encode, RejectsCapacityForParameters)
+{
+    static const uint8_t parameters[] = {0x01};
+    uint8_t encoded[10];
+    size_t encoded_length = 0U;
+
+    EXPECT_EQ(dxl2_encode(1U, DXL2_INST_WRITE, parameters, sizeof(parameters), encoded,
+                          sizeof(encoded), &encoded_length),
+              DXL2_PARSE_ERROR);
+    EXPECT_EQ(encoded_length, 0U);
+}
+
+/** @brief Rejects an output buffer that has no room for the stuffing byte. */
+TEST(Dxl2Encode, RejectsCapacityForStuffing)
+{
+    static const uint8_t parameters[] = {0xFF, 0xFF, 0xFD};
+    uint8_t encoded[14];
+    size_t encoded_length = 0U;
+
+    EXPECT_EQ(dxl2_encode(1U, DXL2_INST_WRITE, parameters, sizeof(parameters), encoded, 13U,
+                          &encoded_length),
+              DXL2_PARSE_ERROR);
+    EXPECT_EQ(dxl2_encode(1U, DXL2_INST_WRITE, parameters, sizeof(parameters), encoded, 14U,
+                          &encoded_length),
+              0);
+    EXPECT_EQ(encoded_length, 14U);
+}

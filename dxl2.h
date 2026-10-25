@@ -68,6 +68,11 @@
 #define DXL2_VERSION_PATCH 0
 #endif
 
+/** Version string "MAJOR.MINOR.PATCH". */
+#ifndef DXL2_VERSION
+#define DXL2_VERSION "1.0.0"
+#endif
+
 /** @} */
 
 #endif /* DXL2_H */

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 830 840" width="830" height="840" role="img" aria-label="dxl2_parser_feed() algorithm">
+<title>dxl2_parser_feed() algorithm</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5A6472"/></marker><marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F8B9A"/></marker><marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2E7D32"/></marker></defs>
+<rect x="0" y="0" width="830" height="840" rx="12" fill="#FFFFFF"/>
+<rect x="230" y="14" width="120" height="36" rx="18" fill="#0B2545" stroke="#0B2545" stroke-width="1.5"/>
+<text x="290" y="37" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">byte in</text>
+<line x1="290" y1="50" x2="290" y2="72" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="140" y="74" width="300" height="44" rx="8" fill="#F2F5FA" stroke="#1E5AA8" stroke-width="1.5"/>
+<text x="290" y="101" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#0B2545" text-anchor="middle">append the byte to the buffer</text>
+<line x1="290" y1="118" x2="290" y2="146" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<polygon points="290,148.0 460.0,196 290,244.0 120.0,196" fill="#FFF7EC" stroke="#E07A00" stroke-width="1.5"/>
+<text x="290" y="193" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">buffer has ≥ 4 bytes and does</text>
+<text x="290" y="209" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">not start with FF FF FD 00?</text>
+<line x1="460" y1="196" x2="578" y2="196" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="470" y="188" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">yes</text>
+<rect x="580" y="172" width="230" height="48" rx="8" fill="#F2F5FA" stroke="#1E5AA8" stroke-width="1.5"/>
+<text x="695" y="194" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="bold" fill="#0B2545" text-anchor="middle">drop the first byte</text>
+<text x="695" y="211" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#5A6472" text-anchor="middle">(resynchronize on noise)</text>
+<path d="M695,172 L695,132 L292,132" stroke="#5A6472" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<line x1="290" y1="244" x2="290" y2="278" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="298" y="260" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">no</text>
+<polygon points="290,280.0 440.0,322 290,364.0 140.0,322" fill="#FFF7EC" stroke="#E07A00" stroke-width="1.5"/>
+<text x="290" y="319" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">7 bytes received</text>
+<text x="290" y="335" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">(header, ID, Length)?</text>
+<line x1="440" y1="322" x2="578" y2="322" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="450" y="314" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">no</text>
+<rect x="580" y="302" width="230" height="40" rx="20" fill="#FFFFFF" stroke="#5A6472" stroke-width="1.5"/>
+<text x="695" y="327" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="bold" fill="#5A6472" text-anchor="middle">return 0 (need more)</text>
+<line x1="290" y1="364" x2="290" y2="398" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="298" y="380" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">yes</text>
+<polygon points="290,400.0 440.0,442 290,484.0 140.0,442" fill="#FFF7EC" stroke="#E07A00" stroke-width="1.5"/>
+<text x="290" y="439" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">3 ≤ Length ≤</text>
+<text x="290" y="455" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">MAX_PACKET_SIZE − 7?</text>
+<line x1="440" y1="442" x2="578" y2="442" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="450" y="434" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">no</text>
+<rect x="580" y="422" width="230" height="40" rx="20" fill="#FFFFFF" stroke="#C62828" stroke-width="1.5"/>
+<text x="695" y="447" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="bold" fill="#C62828" text-anchor="middle">reset, return ERROR</text>
+<line x1="290" y1="484" x2="290" y2="518" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="298" y="500" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">yes</text>
+<polygon points="290,520.0 440.0,560 290,600.0 140.0,560" fill="#FFF7EC" stroke="#E07A00" stroke-width="1.5"/>
+<text x="290" y="557" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">whole packet</text>
+<text x="290" y="573" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">received?</text>
+<line x1="440" y1="560" x2="578" y2="560" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="450" y="552" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">no</text>
+<rect x="580" y="540" width="230" height="40" rx="20" fill="#FFFFFF" stroke="#5A6472" stroke-width="1.5"/>
+<text x="695" y="565" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="bold" fill="#5A6472" text-anchor="middle">return 0 (need more)</text>
+<line x1="290" y1="600" x2="290" y2="634" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="298" y="616" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">yes</text>
+<polygon points="290,636.0 440.0,676 290,716.0 140.0,676" fill="#FFF7EC" stroke="#E07A00" stroke-width="1.5"/>
+<text x="290" y="673" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">CRC valid and</text>
+<text x="290" y="689" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0B2545" text-anchor="middle">byte stuffing valid?</text>
+<line x1="440" y1="676" x2="578" y2="676" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="450" y="668" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">no</text>
+<rect x="580" y="656" width="230" height="40" rx="20" fill="#FFFFFF" stroke="#C62828" stroke-width="1.5"/>
+<text x="695" y="681" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="bold" fill="#C62828" text-anchor="middle">reset, return ERROR</text>
+<line x1="290" y1="716" x2="290" y2="750" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="298" y="732" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">yes</text>
+<rect x="120" y="752" width="340" height="52" rx="8" fill="#EEF7EF" stroke="#2E7D32" stroke-width="1.5"/>
+<text x="290" y="774" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#0B2545" text-anchor="middle">unstuff into struct dxl2_packet</text>
+<text x="290" y="794" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" font-weight="normal" fill="#5A6472" text-anchor="middle">reset the parser</text>
+<line x1="460" y1="778" x2="578" y2="778" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="580" y="758" width="230" height="40" rx="20" fill="#FFFFFF" stroke="#2E7D32" stroke-width="1.5"/>
+<text x="695" y="783" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="bold" fill="#2E7D32" text-anchor="middle">return 1 (packet ready)</text>
+</svg>

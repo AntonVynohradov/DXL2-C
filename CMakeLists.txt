@@ -64,6 +64,7 @@ set(CMAKE_C_FLAGS_RELEASE "-Wall -Wextra -Wpedantic -Wconversion -O2 -DNDEBUG")
 # Unit and integration tests are optional and can be enabled with CMake options
 option(DXL2_UNIT_TESTS "Enable DXL2 unit tests (GoogleTest)" OFF)
 option(DXL2_INTEGRATION_TESTS "Enable DXL2 integration tests (pytest)" OFF)
+option(DXL2_EXAMPLES "Build the host-buildable examples (bare metal simulation, serial port PING)" OFF)
 
 # The static library target is defined in dxl2.cmake
 include(dxl2)
@@ -84,6 +85,13 @@ endif()
 if(DXL2_INTEGRATION_TESTS)
     # Python codec tests and the C/Python cross-check, run through CTest
     include(integration_tests)
+endif()
+
+
+if(DXL2_EXAMPLES)
+    # The bare-metal example runs against a simulated board as a CTest test
+    enable_testing()
+    add_subdirectory(examples)
 endif()
 
 # ==============================================================================
@@ -139,6 +147,7 @@ if(CPPCHECK_EXECUTABLE)
     # -DDXL2_MISRA_RULE_TEXTS=<file> to get readable messages instead of rule numbers.
 
     set(DXL2_MISRA_RULE_TEXTS "" CACHE FILEPATH "Optional MISRA C:2012 rule texts file for Cppcheck")
+    option(DXL2_MISRA_FAIL_ON_VIOLATION "Make 'misra-analyze' fail when the report has violations" ON)
 
     get_filename_component(CPPCHECK_BIN_DIR ${CPPCHECK_EXECUTABLE} DIRECTORY)
     find_file(DXL2_MISRA_SCRIPT misra.py
@@ -146,6 +155,7 @@ if(CPPCHECK_EXECUTABLE)
               ${CPPCHECK_BIN_DIR}/../share/cppcheck/addons
               /usr/share/cppcheck/addons
               /usr/local/share/cppcheck/addons
+              /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/cppcheck/addons   # Debian/Ubuntu packages
         NO_DEFAULT_PATH)
     find_package(Python3 QUIET COMPONENTS Interpreter)
 
@@ -156,6 +166,7 @@ if(CPPCHECK_EXECUTABLE)
                     -DPYTHON=${Python3_EXECUTABLE}
                     -DMISRA_SCRIPT=${DXL2_MISRA_SCRIPT}
                     -DRULE_TEXTS=${DXL2_MISRA_RULE_TEXTS}
+                    -DFAIL_ON_VIOLATION=${DXL2_MISRA_FAIL_ON_VIOLATION}
                     -DSOURCE_DIR=${CMAKE_SOURCE_DIR}
                     -DOUTPUT=${CMAKE_BINARY_DIR}/misra.txt
                     -P ${CMAKE_SOURCE_DIR}/cmake/misra_check.cmake

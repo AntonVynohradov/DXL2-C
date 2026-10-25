@@ -37,6 +37,8 @@
 
 #include <gtest/gtest.h>
 
+#include <cstdio>
+
 #include "dxl2_test_support.h"
 
 /* ==============================================================================
@@ -65,4 +67,15 @@ TEST(Dxl2Defs, U32LittleEndian)
     EXPECT_EQ(buffer[0], 0xD4U);
     EXPECT_EQ(buffer[3], 0xA1U);
     EXPECT_EQ(dxl2_get_u32(buffer), 0xA1B2C3D4UL);
+}
+
+/** @brief The version string matches the numeric version macros. */
+TEST(Dxl2Defs, VersionStringMatchesNumbers)
+{
+    char expected[32];
+
+    (void) std::snprintf(expected, sizeof(expected), "%d.%d.%d", DXL2_VERSION_MAJOR,
+                         DXL2_VERSION_MINOR, DXL2_VERSION_PATCH);
+
+    EXPECT_STREQ(DXL2_VERSION, expected);
 }

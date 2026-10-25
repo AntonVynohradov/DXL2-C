@@ -107,3 +107,37 @@ TEST(Dxl2LinkSend, StatusRejectsInvalidData)
     EXPECT_EQ(dxl2_link_send_status(&link, 1U, 0U, nullptr, 1U), DXL2_PARSE_ERROR);
     EXPECT_EQ(capture.writes, 0);
 }
+
+/** @brief An encoder error is returned and nothing is written. */
+TEST(Dxl2LinkSend, PropagatesEncodeError)
+{
+    WriteCapture capture = {};
+    struct dxl2_link_config config = {};
+    struct dxl2_link link;
+
+    config.write = capture_write;
+    config.write_context = &capture;
+
+    ASSERT_EQ(dxl2_link_init(&link, &config), 0);
+
+    EXPECT_EQ(dxl2_link_send(&link, 1U, DXL2_INST_WRITE, nullptr, 1U), DXL2_PARSE_ERROR);
+    EXPECT_EQ(capture.writes, 0);
+}
+
+/** @brief A status without data carries only the error byte. */
+TEST(Dxl2LinkSend, StatusWithoutData)
+{
+    WriteCapture capture = {};
+    struct dxl2_link_config config = {};
+    struct dxl2_link link;
+
+    config.write = capture_write;
+    config.write_context = &capture;
+
+    ASSERT_EQ(dxl2_link_init(&link, &config), 0);
+    ASSERT_EQ(dxl2_link_send_status(&link, 1U, DXL2_ERR_INSTRUCTION, nullptr, 0U), 0);
+
+    ASSERT_EQ(capture.length, 11U);
+    EXPECT_EQ(capture.data[7], DXL2_INST_STATUS);
+    EXPECT_EQ(capture.data[8], DXL2_ERR_INSTRUCTION);
+}

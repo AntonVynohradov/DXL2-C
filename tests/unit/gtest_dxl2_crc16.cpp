@@ -57,3 +57,9 @@ TEST(Dxl2Crc16, EmptyInputIsZero)
 {
     EXPECT_EQ(dxl2_crc16(nullptr, 0U), 0U);
 }
+
+/** @brief A NULL buffer is not dereferenced, whatever the length. */
+TEST(Dxl2Crc16, NullInputIsZero)
+{
+    EXPECT_EQ(dxl2_crc16(nullptr, 8U), 0U);
+}

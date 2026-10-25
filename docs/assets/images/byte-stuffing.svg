@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300" role="img" aria-label="Byte stuffing in DYNAMIXEL Protocol 2.0">
+<title>Byte stuffing in DYNAMIXEL Protocol 2.0</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5A6472"/></marker><marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F8B9A"/></marker><marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E07A00"/></marker><marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2E7D32"/></marker></defs>
+<rect x="0" y="0" width="900" height="300" rx="12" fill="#FFFFFF"/>
+<text x="20" y="58" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" font-weight="bold" fill="#0B2545" text-anchor="start">Application data</text>
+<rect x="250" y="30" width="70" height="42" rx="5" fill="#F2F5FA" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="285" y="57" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">55</text>
+<rect x="328" y="30" width="70" height="42" rx="5" fill="#F2F5FA" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="363" y="57" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">FF</text>
+<rect x="406" y="30" width="70" height="42" rx="5" fill="#F2F5FA" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="441" y="57" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">FF</text>
+<rect x="484" y="30" width="70" height="42" rx="5" fill="#F2F5FA" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="519" y="57" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">FD</text>
+<rect x="562" y="30" width="70" height="42" rx="5" fill="#F2F5FA" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="597" y="57" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">12</text>
+<text x="20" y="218" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" font-weight="bold" fill="#0B2545" text-anchor="start">On the wire</text>
+<rect x="250" y="190" width="70" height="42" rx="5" fill="#F2F5FA" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="285" y="217" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">55</text>
+<rect x="328" y="190" width="70" height="42" rx="5" fill="#F2F5FA" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="363" y="217" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">FF</text>
+<rect x="406" y="190" width="70" height="42" rx="5" fill="#F2F5FA" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="441" y="217" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">FF</text>
+<rect x="484" y="190" width="70" height="42" rx="5" fill="#F2F5FA" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="519" y="217" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">FD</text>
+<rect x="562" y="190" width="70" height="42" rx="5" fill="#E07A00" stroke="#E07A00" stroke-width="1.5"/>
+<text x="597" y="217" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">FD</text>
+<rect x="640" y="190" width="70" height="42" rx="5" fill="#F2F5FA" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="675" y="217" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="15" font-weight="bold" fill="#0B2545" text-anchor="middle">12</text>
+<path d="M560,82 C560,130 600,140 600,180" stroke="#0F8B9A" stroke-width="2" fill="none" marker-end="url(#arrow-teal)"/>
+<text x="612" y="126" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#0F8B9A" text-anchor="start">dxl2_encode(): after FF FF FD, insert FD</text>
+<path d="M380,186 C380,140 340,130 340,84" stroke="#1E5AA8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="330" y="126" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" font-weight="normal" fill="#1E5AA8" text-anchor="end">parser: check CRC, then remove the FD</text>
+<text x="450" y="268" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="middle">The Length field and the CRC cover the stuffed bytes. FF FF FD not followed by FD is a malformed packet.</text>
+</svg>

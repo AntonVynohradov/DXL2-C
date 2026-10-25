@@ -341,6 +341,30 @@
       },
       "args": ["-m", "mkdocs", "build", "--clean"],
       "problemMatcher": []
+    },
+    {
+      "label": "Docs: Build PDF manual",
+      "group": "build",
+      "detail": "Print-ready A4 user manual (cover, contents, page numbers) into build/manual/; needs WeasyPrint and Pango",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "args": ["tools/docs/build_manual.py"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Docs: Generate diagrams",
+      "group": "build",
+      "detail": "Regenerate the SVG diagrams in docs/assets/images from tools/docs/diagrams.py",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "args": ["tools/docs/diagrams.py"],
+      "problemMatcher": []
     }
   ],
 

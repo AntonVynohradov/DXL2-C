@@ -62,40 +62,43 @@
 
 int dxl2_link_init(struct dxl2_link* link, const struct dxl2_link_config* config)
 {
-    if (link == NULL || config == NULL)
+    int result = DXL2_PARSE_ERROR;
+
+    if ((link != NULL) && (config != NULL))
     {
-        return DXL2_PARSE_ERROR;
+        (void) memset(link, 0, sizeof(*link));
+        link->config = *config;
+        dxl2_parser_init(&link->parser);
+        result = 0;
     }
 
-    memset(link, 0, sizeof(*link));
-    link->config = *config;
-    dxl2_parser_init(&link->parser);
-
-    return 0;
+    return result;
 }
 
 void dxl2_link_receive(struct dxl2_link* link, const uint8_t* data, size_t length)
 {
-    if (link == NULL || data == NULL)
+    if ((link != NULL) && (data != NULL))
     {
-        return;
-    }
-
-    for (size_t i = 0U; i < length; ++i)
-    {
-        int result = dxl2_parser_feed(&link->parser, data[i], &link->packet);
-
-        if (result > 0)
+        for (size_t i = 0U; i < length; ++i)
         {
-            link->rx_packets++;
-            if (link->config.handler != NULL)
+            const int result = dxl2_parser_feed(&link->parser, data[i], &link->packet);
+
+            if (result > 0)
             {
-                link->config.handler(&link->packet, link->config.handler_context);
+                link->rx_packets++;
+                if (link->config.handler != NULL)
+                {
+                    link->config.handler(&link->packet, link->config.handler_context);
+                }
             }
-        }
-        else if (result < 0)
-        {
-            link->invalid_packets++;
+            else if (result < 0)
+            {
+                link->invalid_packets++;
+            }
+            else
+            {
+                /* Packet incomplete: wait for more bytes. */
+            }
         }
     }
 }
@@ -103,50 +106,51 @@ void dxl2_link_receive(struct dxl2_link* link, const uint8_t* data, size_t lengt
 int dxl2_link_send(struct dxl2_link* link, uint8_t id, uint8_t instruction,
                    const uint8_t* parameters, uint16_t parameter_length)
 {
-    uint8_t output[DXL2_MAX_PACKET_SIZE];
-    size_t output_length;
-    int result;
+    int result = DXL2_PARSE_ERROR;
 
-    if (link == NULL || link->config.write == NULL)
+    if ((link != NULL) && (link->config.write != NULL))
     {
-        return DXL2_PARSE_ERROR;
+        uint8_t output[DXL2_MAX_PACKET_SIZE];
+        size_t output_length = 0U;
+
+        result = dxl2_encode(id, instruction, parameters, parameter_length, output, sizeof(output),
+                             &output_length);
+        if (result == 0)
+        {
+            result = link->config.write(link->config.write_context, output, output_length);
+        }
     }
 
-    result = dxl2_encode(id, instruction, parameters, parameter_length, output, sizeof(output),
-                         &output_length);
-    if (result != 0)
-    {
-        return result;
-    }
-
-    return link->config.write(link->config.write_context, output, output_length);
+    return result;
 }
 
 int dxl2_link_send_status(struct dxl2_link* link, uint8_t id, uint8_t error, const uint8_t* data,
                           uint16_t data_length)
 {
     uint8_t parameters[DXL2_MAX_PARAMETER_SIZE];
+    int result = DXL2_PARSE_ERROR;
 
-    if (data_length > DXL2_MAX_PARAMETER_SIZE - 1U || (data_length != 0U && data == NULL))
+    if ((data_length <= (DXL2_MAX_PARAMETER_SIZE - 1U)) && ((data_length == 0U) || (data != NULL)))
     {
-        return DXL2_PARSE_ERROR;
+        parameters[0] = error;
+        if (data_length > 0U)
+        {
+            (void) memcpy(&parameters[1], data, data_length);
+        }
+
+        result =
+            dxl2_link_send(link, id, DXL2_INST_STATUS, parameters, (uint16_t) (data_length + 1U));
     }
 
-    parameters[0] = error;
-    if (data_length > 0U)
-    {
-        memcpy(&parameters[1], data, data_length);
-    }
-
-    return dxl2_link_send(link, id, DXL2_INST_STATUS, parameters, (uint16_t) (data_length + 1U));
+    return result;
 }
 
 uint32_t dxl2_link_rx_packets(const struct dxl2_link* link)
 {
-    return link != NULL ? link->rx_packets : 0U;
+    return (link != NULL) ? link->rx_packets : 0U;
 }
 
 uint32_t dxl2_link_invalid_packets(const struct dxl2_link* link)
 {
-    return link != NULL ? link->invalid_packets : 0U;
+    return (link != NULL) ? link->invalid_packets : 0U;
 }

@@ -22,15 +22,20 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y doxygen graphviz
-          pip install mkdocs mkdocs-material mkdoxy mkdocs-autorefs
+          sudo apt-get install -y doxygen graphviz libpango-1.0-0 libpangoft2-1.0-0
+          pip install mkdocs mkdocs-material mkdoxy mkdocs-autorefs weasyprint
+
+      - name: Build PDF manual
+        run: |
+          # Published with the site as /downloads/DXL2-C_User_Manual.pdf
+          python tools/docs/build_manual.py --output docs/downloads/DXL2-C_User_Manual.pdf
 
       - name: Setup SSH
         run: |

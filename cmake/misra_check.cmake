@@ -19,7 +19,8 @@
 # Last Updated: October 2026
 # SPDX-License-Identifier: Apache-2.0
 #
-# Inputs (-D): CPPCHECK, PYTHON, MISRA_SCRIPT, SOURCE_DIR, OUTPUT, RULE_TEXTS (optional)
+# Inputs (-D): CPPCHECK, PYTHON, MISRA_SCRIPT, SOURCE_DIR, OUTPUT, RULE_TEXTS (optional),
+#              FAIL_ON_VIOLATION (optional, ON makes any violation a build error)
 #
 ################################################################################
 
@@ -87,3 +88,7 @@ message("${MISRA_REPORT}${MISRA_STDOUT}")
 string(REGEX MATCHALL "\\[misra-c2012-[0-9.]+\\]" MISRA_VIOLATIONS "${MISRA_REPORT}")
 list(LENGTH MISRA_VIOLATIONS MISRA_VIOLATION_COUNT)
 message(STATUS "MISRA C:2012 violations: ${MISRA_VIOLATION_COUNT} (report: ${OUTPUT})")
+
+if(FAIL_ON_VIOLATION AND MISRA_VIOLATION_COUNT GREATER 0)
+    message(FATAL_ERROR "MISRA C:2012 violations found; fix them or record a deviation in docs/misra.md")
+endif()

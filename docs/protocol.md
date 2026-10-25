@@ -1,33 +1,55 @@
-# DYNAMIXEL Protocol 2.0 wire format
+# DYNAMIXEL Protocol 2.0
 
-Reference: [ROBOTIS Protocol 2.0 specification](https://docs.robotis.com/docs/dxl/protocol/protocol2/).
-This page describes the format and exactly what this library does with it.
+This chapter describes the Protocol 2.0 wire format and exactly what DXL2-C does with
+each part of it. The normative reference is the
+[ROBOTIS Protocol 2.0 specification](https://docs.robotis.com/docs/dxl/protocol/protocol2/).
+
+## The bus
+
+![A controller and three devices on one half-duplex bus](assets/images/bus-topology.svg)
+
+DYNAMIXEL devices share one serial line (TTL or RS-485) in a daisy chain. The line is
+half duplex: only one node may transmit at a time. Communication is always a
+request/response exchange:
+
+1. The **controller** sends an **Instruction Packet** addressed to one ID (0–252) or to
+   the broadcast ID 254.
+2. The addressed **device** executes it and, unless the instruction was broadcast or its
+   Status Return Level says otherwise, answers with a **Status Packet** after its Return
+   Delay Time.
+3. The controller waits for the reply with a timeout before it sends the next request.
+
+The UART format is 8 data bits, no parity, one stop bit; the bit rate is configured per
+device (57600 bit/s by default on most models, up to several Mbit/s).
 
 ## Packet
 
-```
-FF FF FD 00 | ID | LEN_L LEN_H | INST | PARAM ... | CRC_L CRC_H
-  header      4     5     6       7      8 ...       last two bytes
-```
+![Packet structure](assets/images/packet-structure.svg)
 
-| Field | Size | Meaning |
-| --- | --- | --- |
-| Header | 4 | Always `FF FF FD 00` |
-| ID | 1 | Device ID `0..252`; `0xFE` = broadcast (`DXL2_BROADCAST_ID`) |
-| Length | 2 | Little endian. Counts INST + stuffed parameters + CRC, so the minimum is 3 |
-| Instruction | 1 | `DXL2_INST_*`; `0x55` marks a Status Packet |
-| Parameters | n | Instruction parameters; for a Status Packet the first byte is the error |
-| CRC | 2 | Little endian, over all bytes from the header up to the CRC (stuffed) |
+| Field | Offset | Size | Meaning |
+| --- | --- | --- | --- |
+| Header | 0 | 4 | Always `FF FF FD 00` |
+| ID | 4 | 1 | Device ID `0..252`; `0xFE` = broadcast (`DXL2_BROADCAST_ID`) |
+| Length | 5 | 2 | Little endian. Counts the instruction, the stuffed parameters and the CRC, so the minimum is 3 |
+| Instruction | 7 | 1 | `DXL2_INST_*`; `0x55` marks a Status Packet |
+| Parameters | 8 | n | Instruction parameters; for a Status Packet the first byte is the error |
+| CRC | 7 + Length − 2 | 2 | Little endian, over all bytes from the header up to the CRC (stuffed) |
 
-All multi-byte fields inside the parameters (addresses, lengths, register
-values) are little endian: use `dxl2_get_u16/u32` and `dxl2_put_u16/u32`.
+A complete packet is therefore `7 + Length` bytes long; the shortest one (no parameters)
+is 10 bytes. All multi-byte values inside the parameters — addresses, lengths, register
+values — are little endian too: use `dxl2_get_u16/u32` and `dxl2_put_u16/u32`.
+
+In `struct dxl2_packet` the library gives you the ID, the instruction and the
+**unstuffed** parameters with their count. The header, Length and CRC are consumed by the
+parser.
 
 ## CRC-16
 
 Polynomial `0x8005`, initial value `0`, not reflected, no final XOR
 (the CRC-16/BUYPASS variant). It is computed over the stuffed packet. The
 ROBOTIS PING reference packet `FF FF FD 00 01 03 00 01` has CRC `0x4E19`
-(transmitted as `19 4E`).
+(transmitted as `19 4E`). The CRC is computed bit by bit without a lookup table,
+which keeps the code small; its execution time depends only on the length.
 
 ## Byte stuffing
 
@@ -35,9 +57,10 @@ So that a header never appears inside a packet, the sender inserts an extra
 `0xFD` after every `FF FF FD` sequence in the instruction/parameter area, and
 the receiver removes it. The Length field counts the stuffed bytes.
 
-```
-parameters:  FF FF FD           ->  wire: FF FF FD FD
-```
+![Byte stuffing](assets/images/byte-stuffing.svg)
+
+The rule applies to the whole area after the Length field — instruction and parameters —
+so a sequence that starts in the instruction byte is stuffed too.
 
 `dxl2_encode()` stuffs while it writes. The parser checks the CRC over the
 stuffed bytes first, then unstuffs. An `FF FF FD` that is not followed by `FD`
@@ -97,7 +120,15 @@ the parameters (the Control Table) is up to the application.
 4. Any error returns `DXL2_PARSE_ERROR` and resets the parser; keep feeding
    bytes, the next packet is found normally.
 
-The output packet is written only when a valid packet completes.
+The bytes of a rejected packet are discarded, including any that follow its
+header. If a byte was lost so that the Length field counts into the next
+packet, that packet is rejected too and the parser resynchronizes on the one
+after it. A controller should therefore treat a missing reply as a timeout
+and retry, as the ROBOTIS DynamixelSDK does.
+
+The output packet is not touched while a packet is incomplete or when its CRC
+is wrong. After any error its contents are undefined: use it only when
+`dxl2_parser_feed()` returns `1`.
 
 ## Reference packets (from the specification, used in the tests)
 

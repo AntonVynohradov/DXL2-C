@@ -1,4 +1,4 @@
-# Integration
+# Integration Guide
 
 The library does not touch hardware. An integration has three parts:
 
@@ -10,89 +10,18 @@ The library does not touch hardware. An integration has three parts:
 3. **Application:** a `dxl2_packet_handler_t` that interprets the instruction
    for its IDs (Control Table) and answers with `dxl2_link_send_status()`.
 
+Complete, buildable programs for each pattern below are described in
+[Examples](examples.md).
+
 ## Zephyr: UART with an RX interrupt, byte queue and RX thread
 
-This is the structure used in the SmartManipulator-X firmware, reduced to the
-library API. The ISR only queues bytes; a thread owns the link.
+`examples/zephyr` is the structure used in the SmartManipulator-X firmware,
+reduced to the library API. The ISR only queues bytes; a thread owns the link.
+Select the UART with a `dxl2,uart` chosen node (see `app.overlay.example`) and
+build it with:
 
-```c
-#include "dxl2.h"
-
-#include <zephyr/device.h>
-#include <zephyr/drivers/uart.h>
-#include <zephyr/kernel.h>
-
-#include <errno.h>
-
-#define HOST_UART_NODE DT_CHOSEN(zephyr_console) /* console output must be disabled */
-
-K_MSGQ_DEFINE(rx_byte_queue, sizeof(uint8_t), 512, 1);
-K_THREAD_STACK_DEFINE(rx_stack, 2048);
-K_MUTEX_DEFINE(tx_mutex);
-
-static const struct device *const host_uart = DEVICE_DT_GET(HOST_UART_NODE);
-static struct k_thread rx_thread;
-static struct dxl2_link link;
-
-static void uart_rx_isr(const struct device *dev, void *user_data)
-{
-	uint8_t bytes[32];
-	int count;
-
-	ARG_UNUSED(user_data);
-	while (uart_irq_update(dev) && uart_irq_rx_ready(dev)) {
-		count = uart_fifo_read(dev, bytes, sizeof(bytes));
-		if (count <= 0) {
-			break;
-		}
-		for (int i = 0; i < count; ++i) {
-			(void)k_msgq_put(&rx_byte_queue, &bytes[i], K_NO_WAIT); /* count overruns here */
-		}
-	}
-}
-
-static int uart_write(void *context, const uint8_t *data, size_t length)
-{
-	ARG_UNUSED(context);
-	k_mutex_lock(&tx_mutex, K_FOREVER);
-	for (size_t i = 0; i < length; ++i) {
-		uart_poll_out(host_uart, data[i]);
-	}
-	k_mutex_unlock(&tx_mutex);
-	return 0;
-}
-
-static void rx_thread_main(void *a, void *b, void *c)
-{
-	uint8_t byte;
-
-	for (;;) {
-		if (k_msgq_get(&rx_byte_queue, &byte, K_FOREVER) == 0) {
-			dxl2_link_receive(&link, &byte, 1U);
-		}
-	}
-}
-
-int protocol_init(dxl2_packet_handler_t handler, void *context)
-{
-	const struct dxl2_link_config config = {
-		.write = uart_write,
-		.handler = handler,
-		.handler_context = context,
-	};
-
-	if (!device_is_ready(host_uart)) {
-		return -ENODEV;
-	}
-	dxl2_link_init(&link, &config);
-	if (uart_irq_callback_user_data_set(host_uart, uart_rx_isr, NULL) != 0) {
-		return -EIO;
-	}
-	k_thread_create(&rx_thread, rx_stack, K_THREAD_STACK_SIZEOF(rx_stack), rx_thread_main,
-			NULL, NULL, NULL, K_PRIO_PREEMPT(5), 0, K_NO_WAIT);
-	uart_irq_rx_enable(host_uart);
-	return 0;
-}
+```bash
+west build -b <board> examples/zephyr -- -DDTC_OVERLAY_FILE=<board>.overlay
 ```
 
 Notes from the hardware bring-up:
@@ -118,16 +47,24 @@ include(path/to/dxl2/dxl2.cmake)
 target_link_libraries(app PRIVATE dxl2)
 ```
 
+In a Zephyr application also link the library to `zephyr_interface`, so it is
+compiled with the board's architecture flags (see `examples/zephyr/CMakeLists.txt`):
+
+```cmake
+target_link_libraries(dxl2 PUBLIC zephyr_interface)
+```
+
 Without CMake, compile `src/*.c` and add the repository root and `inc/` to
 the include path. Buffer sizes are set in `inc/dxl2_config.h` and can be
 overridden with compiler definitions (for example `-DDXL2_MAX_PACKET_SIZE=1024U`).
 
 ## Bare metal / other RTOS
 
-The same pattern applies: ring buffer from the RX interrupt, drain it from
-the main loop into `dxl2_link_receive()`, and a blocking or buffered write
-function. On a host (Linux/Windows serial port) read whatever the port
-returns and pass it to `dxl2_link_receive()` in one call.
+The same pattern applies (`examples/bare_metal`): ring buffer from the RX
+interrupt, drain it from the main loop into `dxl2_link_receive()`, and a
+blocking or buffered write function. On a host (Linux/Windows serial port,
+`examples/host_serial`) read whatever the port returns and pass it to
+`dxl2_link_receive()` in one call.
 
 ## Answering a device request
 
