@@ -7,6 +7,24 @@ All notable changes to DXL2-C are listed here. The format follows
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-11-22
+
+### Changed
+
+- **Breaking:** the parser removes byte stuffing in place, in its own buffer.
+  `struct dxl2_packet` no longer holds a copy of the parameters:
+  `parameters` is now `const uint8_t*` and points into the buffer of the
+  parser that decoded the packet. The parameters stay valid until the next
+  `dxl2_parser_feed()` or `dxl2_parser_init()` with that parser. Code that
+  reads `packet->parameters[i]` in the packet handler or right after
+  `dxl2_parser_feed()` returns 1 compiles and works unchanged; code that keeps
+  a copy of the structure must copy the parameter bytes instead (as
+  `tools/dxl2_gui/native/dxl2_host.c` now does).
+- RAM: `struct dxl2_packet` shrinks from `DXL2_MAX_PARAMETER_SIZE` + 4 bytes to
+  8 bytes on a 32-bit MCU (16 on a 64-bit host); `struct dxl2_link` on
+  Cortex-M4 from 536 to 292 bytes with the default `DXL2_MAX_PACKET_SIZE`
+  (256), from 1,560 to 804 bytes with 768. The stack frames are unchanged.
+
 ## [1.0.0] - 2026-10-25
 
 First public release.
@@ -44,5 +62,6 @@ First public release.
   random packets; ROBOTIS reference packets as regression vectors.
 - Cppcheck and CodeQL static analysis in CI.
 
-[Unreleased]: https://github.com/AntonVynohradov/DXL2-C/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/AntonVynohradov/DXL2-C/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/AntonVynohradov/DXL2-C/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/AntonVynohradov/DXL2-C/releases/tag/v1.0.0

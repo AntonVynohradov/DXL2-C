@@ -295,7 +295,8 @@ void stream_bytes(const uint8_t* data, size_t length)
 
         if (result == 1)
         {
-            process(&packet);      /* a complete, valid packet */
+            process(&packet);      /* a complete, valid packet; its parameters stay in
+                                      the parser buffer until the next byte is fed */
         }
         else if (result < 0)
         {

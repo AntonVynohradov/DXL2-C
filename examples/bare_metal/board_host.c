@@ -140,6 +140,8 @@ static const struct request requests[] = {
 
 static size_t next_request;
 static int replies;
+/* The parameters of reply_packet stay in the buffer of reply_parser until the next reply */
+static struct dxl2_parser reply_parser;
 static struct dxl2_packet reply_packet;
 static int failures;
 
@@ -200,13 +202,12 @@ void board_init(uint32_t baud_rate)
 
 int board_uart_write(const uint8_t* data, size_t length)
 {
-    struct dxl2_parser parser;
     int result = 0;
 
-    dxl2_parser_init(&parser);
+    dxl2_parser_init(&reply_parser);
     for (size_t i = 0U; i < length; ++i)
     {
-        result = dxl2_parser_feed(&parser, data[i], &reply_packet);
+        result = dxl2_parser_feed(&reply_parser, data[i], &reply_packet);
     }
     replies += (result == 1) ? 1 : 0;
     return 0;

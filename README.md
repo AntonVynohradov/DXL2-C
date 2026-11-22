@@ -27,7 +27,7 @@ it is developed for embedded systems that must comply with **MISRA C:2012**.
 
 ### Project Status
 
-✅ **Release 1.0.0** — stable public API.
+✅ **Release 2.0.0** — stable public API.
 
 The codec and the transport-independent link are complete and covered by
 unit tests at 100 % of lines and branches. The Cppcheck MISRA C:2012 addon
@@ -95,6 +95,7 @@ A byte-stuffing rule keeps the header sequence out of the payload.
 - [x] Comprehensive API documentation
 - [x] Integration examples (bare metal, Zephyr, host serial port)
 - [x] Release 1.0.0
+- [x] Release 2.0.0: parameters decoded in place, no copy in `struct dxl2_packet`
 
 ---
 
@@ -336,6 +337,6 @@ implementation and is not affiliated with or endorsed by ROBOTIS.
 
 ---
 
-**Last Updated:** October 2026
+**Last Updated:** November 2026
 **Status:** Stable
-**Current Release:** 1.0.0
+**Current Release:** 2.0.0

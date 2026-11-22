@@ -57,7 +57,7 @@
 /** @{ */
 
 #ifndef DXL2_VERSION_MAJOR
-#define DXL2_VERSION_MAJOR 1
+#define DXL2_VERSION_MAJOR 2
 #endif
 
 #ifndef DXL2_VERSION_MINOR
@@ -70,7 +70,7 @@
 
 /** Version string "MAJOR.MINOR.PATCH". */
 #ifndef DXL2_VERSION
-#define DXL2_VERSION "1.0.0"
+#define DXL2_VERSION "2.0.0"
 #endif
 
 /** @} */

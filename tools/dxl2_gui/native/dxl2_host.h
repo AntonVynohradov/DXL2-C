@@ -65,17 +65,29 @@ extern "C"
 /** @name Type definitions */
 /** @{ */
 
+/**
+ * @brief One queued packet. The parameters of a decoded packet point into the parser
+ *        buffer and are overwritten by the next packet, so the queue keeps a copy.
+ */
+struct dxl2_host_packet
+{
+    uint8_t id;                                  /**< Packet ID. */
+    uint8_t instruction;                         /**< Instruction byte. */
+    uint16_t parameter_length;                   /**< Number of valid bytes in parameters. */
+    uint8_t parameters[DXL2_MAX_PARAMETER_SIZE]; /**< Copy of the unstuffed parameters. */
+};
+
 /** @brief Host link state. Treat the members as private. */
 struct dxl2_host
 {
-    struct dxl2_link link;                        /**< Protocol link. */
-    struct dxl2_packet queue[DXL2_HOST_RX_QUEUE]; /**< Decoded packets not yet taken. */
-    size_t head;                                  /**< Index of the oldest packet. */
-    size_t count;                                 /**< Number of queued packets. */
-    uint32_t dropped;                             /**< Packets lost to a full queue. */
-    uint8_t* tx;                                  /**< Output buffer of the current build. */
-    size_t tx_capacity;                           /**< Capacity of tx. */
-    size_t tx_length;                             /**< Bytes written to tx. */
+    struct dxl2_link link;                             /**< Protocol link. */
+    struct dxl2_host_packet queue[DXL2_HOST_RX_QUEUE]; /**< Decoded packets not yet taken. */
+    size_t head;                                       /**< Index of the oldest packet. */
+    size_t count;                                      /**< Number of queued packets. */
+    uint32_t dropped;                                  /**< Packets lost to a full queue. */
+    uint8_t* tx;                                       /**< Output buffer of the current build. */
+    size_t tx_capacity;                                /**< Capacity of tx. */
+    size_t tx_length;                                  /**< Bytes written to tx. */
 };
 
 /** @} */

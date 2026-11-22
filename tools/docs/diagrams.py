@@ -207,7 +207,7 @@ def parser_flow() -> None:
     no_branch(676, 150, "reset, return ERROR", RED)
     down(716, 750)
     s.rect(cx - 170, 752, 340, 52, fill="#EEF7EF", stroke=GREEN)
-    s.text(cx, 774, "unstuff into struct dxl2_packet", size=13.5, weight="bold")
+    s.text(cx, 774, "unstuff in place, fill struct dxl2_packet", size=13.5, weight="bold")
     s.text(cx, 794, "reset the parser", size=12, fill=GREY)
     s.line(cx + 170, 778, 578, 778, arrow="end")
     outcome(778, "return 1 (packet ready)", GREEN)

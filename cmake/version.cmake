@@ -26,7 +26,7 @@
 
 # Used when the source tree has no Git metadata or no vX.Y.Z tag yet; keep it in
 # sync with the fallback values in dxl2.h.
-set(DXL2_DEFAULT_VERSION "1.0.0")
+set(DXL2_DEFAULT_VERSION "2.0.0")
 
 # ==============================================================================
 # VERSION EXTRACTION

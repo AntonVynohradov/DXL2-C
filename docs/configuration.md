@@ -20,12 +20,12 @@ Derived values:
 
 ## Memory footprint
 
-`DXL2_MAX_PACKET_SIZE` sizes three buffers:
+`DXL2_MAX_PACKET_SIZE` sizes one buffer in RAM and two on the stack of the transmit functions:
 
 | Object | Size |
 | --- | --- |
 | `struct dxl2_parser` | `DXL2_MAX_PACKET_SIZE` + `size_t` |
-| `struct dxl2_packet` | `DXL2_MAX_PARAMETER_SIZE` + 4 bytes |
+| `struct dxl2_packet` | 4 bytes + a pointer: the parameters stay in the parser buffer |
 | `struct dxl2_link` | parser + packet + configuration + two counters |
 | `dxl2_link_send()` stack | `DXL2_MAX_PACKET_SIZE` |
 | `dxl2_link_send_status()` stack | `DXL2_MAX_PARAMETER_SIZE` + the `dxl2_link_send()` frame |

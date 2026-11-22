@@ -20,12 +20,12 @@ under *Reference → Doxygen*.
 
 ## Version — `dxl2.h`
 
-| Macro | Value in 1.0.0 | Meaning |
+| Macro | Value in 2.0.0 | Meaning |
 | --- | --- | --- |
-| `DXL2_VERSION_MAJOR` | `1` | Incompatible API changes |
+| `DXL2_VERSION_MAJOR` | `2` | Incompatible API changes |
 | `DXL2_VERSION_MINOR` | `0` | Compatible additions |
 | `DXL2_VERSION_PATCH` | `0` | Fixes |
-| `DXL2_VERSION` | `"1.0.0"` | Version string |
+| `DXL2_VERSION` | `"2.0.0"` | Version string |
 
 CMake builds take the values from the `vX.Y.Z` Git tag; other builds use the fallbacks in
 `dxl2.h`.
@@ -102,15 +102,20 @@ One decoded packet, with byte stuffing removed.
 ```c
 struct dxl2_packet
 {
-    uint8_t id;                                  /* source or destination ID */
-    uint8_t instruction;                         /* instruction, 0x55 for Status */
-    uint16_t parameter_length;                   /* number of valid bytes in parameters */
-    uint8_t parameters[DXL2_MAX_PARAMETER_SIZE]; /* unstuffed parameters */
+    uint8_t id;                /* source or destination ID */
+    uint8_t instruction;       /* instruction, 0x55 for Status */
+    uint16_t parameter_length; /* number of valid bytes in parameters */
+    const uint8_t* parameters; /* unstuffed parameters, in the parser buffer */
 };
 ```
 
 For a Status Packet, `parameters[0]` is the error byte and the data follows from
 `parameters[1]`.
+
+The parameters are not copied: the parser removes the byte stuffing in place, and
+`parameters` points into the buffer of the parser that decoded the packet. They stay
+valid until the next `dxl2_parser_feed()` or `dxl2_parser_init()` with that parser.
+To keep a packet longer, copy its bytes, not the structure.
 
 ### `struct dxl2_parser`
 
@@ -157,14 +162,14 @@ int dxl2_parser_feed(struct dxl2_parser* parser, uint8_t byte, struct dxl2_packe
 ```
 
 Feeds one byte to the parser. The parser searches for the header, checks the Length
-field, waits for the complete packet, validates the CRC and removes byte stuffing. Keep
+field, waits for the complete packet, validates the CRC and removes byte stuffing in its own buffer. Keep
 feeding bytes after an error: the parser resynchronizes on the next header.
 
 | Parameter | Description |
 | --- | --- |
 | `parser` | Initialized parser state |
 | `byte` | Next byte of the stream |
-| `packet` | Output packet; its contents are valid only when the call returns `1` |
+| `packet` | Output packet; its contents are valid only when the call returns `1`, its parameters only until the next call with `parser` |
 
 | Return | Meaning |
 | --- | --- |

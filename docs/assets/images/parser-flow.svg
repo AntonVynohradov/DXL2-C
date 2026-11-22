@@ -56,7 +56,7 @@
 <line x1="290" y1="716" x2="290" y2="750" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
 <text x="298" y="732" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#5A6472" text-anchor="start">yes</text>
 <rect x="120" y="752" width="340" height="52" rx="8" fill="#EEF7EF" stroke="#2E7D32" stroke-width="1.5"/>
-<text x="290" y="774" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#0B2545" text-anchor="middle">unstuff into struct dxl2_packet</text>
+<text x="290" y="774" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#0B2545" text-anchor="middle">unstuff in place, fill struct dxl2_packet</text>
 <text x="290" y="794" font-family="Inter, 'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" font-weight="normal" fill="#5A6472" text-anchor="middle">reset the parser</text>
 <line x1="460" y1="778" x2="578" y2="778" stroke="#5A6472" stroke-width="1.6" marker-end="url(#arrow)"/>
 <rect x="580" y="758" width="230" height="40" rx="20" fill="#FFFFFF" stroke="#2E7D32" stroke-width="1.5"/>

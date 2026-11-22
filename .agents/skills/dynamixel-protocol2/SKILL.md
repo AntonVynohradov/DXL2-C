@@ -8,7 +8,7 @@ description: "Use when working on the dxl2 DYNAMIXEL Protocol 2.0 library: the C
 ## Scope
 
 This repository is a portable C11 static library plus a Python twin of the
-codec. Version 1.0.0 is released: the public API in `dxl2.h` and `inc/` is
+codec. Version 2.0.0 is released: the public API in `dxl2.h` and `inc/` is
 stable and follows Semantic Versioning. It implements the Protocol 2.0 **wire format** only. Device models,
 Control Tables, motor control and transports (UART/USB drivers, threads,
 queues) belong to the applications that use it, not here.

@@ -78,6 +78,35 @@ TEST(Dxl2Parser, UnstuffsRoundTrip)
     EXPECT_EQ(std::memcmp(packet.parameters, parameters, sizeof(parameters)), 0);
 }
 
+/** @brief Removes byte stuffing in place: the parameters stay in the parser buffer. */
+TEST(Dxl2Parser, DecodesParametersInPlace)
+{
+    static const uint8_t parameters[] = {0x10, 0xFF, 0xFF, 0xFD, 0x20, 0xFF, 0xFF, 0xFD, 0x30};
+    struct dxl2_parser parser;
+    struct dxl2_packet packet;
+    uint8_t encoded[DXL2_MAX_PACKET_SIZE];
+    size_t encoded_length = 0U;
+
+    ASSERT_EQ(dxl2_encode(7U, DXL2_INST_WRITE, parameters, sizeof(parameters), encoded,
+                          sizeof(encoded), &encoded_length),
+              0);
+    ASSERT_EQ(encoded_length, 10U + sizeof(parameters) + 2U);
+    dxl2_parser_init(&parser);
+
+    EXPECT_EQ(feed_all(&parser, encoded, encoded_length, &packet), 1);
+    EXPECT_EQ(packet.id, 7U);
+    EXPECT_EQ(packet.instruction, DXL2_INST_WRITE);
+    EXPECT_EQ(packet.parameters, &parser.buffer[8]);
+    EXPECT_EQ(packet.parameter_length, sizeof(parameters));
+    EXPECT_EQ(std::memcmp(packet.parameters, parameters, sizeof(parameters)), 0);
+}
+
+/** @brief The decoded packet holds no copy of the parameters. */
+TEST(Dxl2Parser, PacketHoldsNoParameterCopy)
+{
+    EXPECT_LE(sizeof(struct dxl2_packet), 2U * sizeof(void*));
+}
+
 /** @brief Rejects a packet with a wrong CRC. */
 TEST(Dxl2Parser, RejectsCrcError)
 {

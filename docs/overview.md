@@ -45,7 +45,7 @@ DXL2-C is deliberately limited to the wire format. These belong to your applicat
 | Language | C11 (`-std=c11`), compiles without warnings with `-Wall -Wextra -Wpedantic -Wconversion` |
 | Dependencies | `<stddef.h>`, `<stdint.h>`, `<stdbool.h>`, `<string.h>` only |
 | Memory | No heap; all state in caller-owned structures; sizes fixed by `DXL2_MAX_PACKET_SIZE` |
-| RAM per link | about `2 × DXL2_MAX_PACKET_SIZE` + 40 bytes (≈ 550 bytes with the default 256) |
+| RAM per link | `DXL2_MAX_PACKET_SIZE` + 36 bytes on a 32-bit MCU (292 bytes with the default 256) |
 | Stack | at most about 600 bytes on Cortex-M4 for the transmit path ([details](configuration.md#stack-usage)) |
 | Coding standard | MISRA C:2012, 0 Cppcheck addon violations, [3 advisory deviations](misra.md) |
 | Tests | 100 % line and branch coverage; C/Python cross-check; ROBOTIS reference packets |

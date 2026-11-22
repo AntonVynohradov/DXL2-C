@@ -74,13 +74,19 @@ extern "C"
  * @details Byte stuffing has been removed from @p parameters. For a Status
  *          Packet (instruction 0x55), the status error byte is the first
  *          parameter.
+ *
+ *          The parameters are not copied: the parser removes the byte stuffing
+ *          in place, and @p parameters points into the buffer of the parser
+ *          that decoded the packet. They stay valid until the next call of
+ *          dxl2_parser_feed() or dxl2_parser_init() with that parser. Copy
+ *          the bytes to keep them longer, not the structure.
  */
 struct dxl2_packet
 {
-    uint8_t id;                                  /**< Packet source/destination ID. */
-    uint8_t instruction;                         /**< Instruction byte, 0x55 for Status. */
-    uint16_t parameter_length;                   /**< Number of valid bytes in parameters. */
-    uint8_t parameters[DXL2_MAX_PARAMETER_SIZE]; /**< Unstuffed parameter bytes. */
+    uint8_t id;                /**< Packet source/destination ID. */
+    uint8_t instruction;       /**< Instruction byte, 0x55 for Status. */
+    uint16_t parameter_length; /**< Number of valid bytes in parameters. */
+    const uint8_t* parameters; /**< Unstuffed parameter bytes, in the parser buffer. */
 };
 
 /**
@@ -121,13 +127,14 @@ void dxl2_parser_init(struct dxl2_parser* parser);
  * @brief Feed one byte to the incremental packet parser.
  *
  * @details The parser searches for the Protocol 2.0 header, waits for the
- *          declared packet length, validates CRC, then removes byte stuffing.
- *          Continue feeding bytes after a parse error so the parser can find
- *          the next packet header.
+ *          declared packet length, validates CRC, then removes byte stuffing
+ *          in place, in its own buffer. Continue feeding bytes after a parse
+ *          error so the parser can find the next packet header.
  *
  * @param parser Parser state.
  * @param byte Next byte from the input stream.
- * @param packet Output packet; its contents are valid only when the call returns 1.
+ * @param packet Output packet; its contents are valid only when the call returns 1,
+ *               and its parameters only until the next call with @p parser.
  * @retval 1 A complete valid packet is available in @p packet.
  * @retval 0 More bytes are required.
  * @retval DXL2_PARSE_ERROR Invalid arguments or a malformed/CRC-invalid packet.

@@ -69,13 +69,15 @@ static const uint8_t dxl2_header[DXL2_HEADER_SIZE] = {0xFF, 0xFF, 0xFD, 0x00};
 static void dxl2_parser_reset(struct dxl2_parser* parser);
 
 /**
- * @brief   Validate CRC and decode a complete wire packet.
- * @param   parser - Parser containing the complete wire packet
- * @param   packet - Receives the decoded packet on success
+ * @brief   Validate CRC and decode a complete wire packet in place.
+ * @param   parser - Parser containing the complete wire packet; the body is unstuffed in
+ *                   its buffer
+ * @param   packet - Receives the decoded packet on success; its parameters point into
+ *                   the parser buffer
  * @param   total_length - Complete wire-packet length, including header and CRC
  * @return  1 on success, DXL2_PARSE_ERROR on CRC mismatch, invalid stuffing or payload
  */
-static int dxl2_decode_packet(const struct dxl2_parser* parser, struct dxl2_packet* packet,
+static int dxl2_decode_packet(struct dxl2_parser* parser, struct dxl2_packet* packet,
                               size_t total_length);
 
 /* ==============================================================================
@@ -92,8 +94,12 @@ static void dxl2_parser_reset(struct dxl2_parser* parser)
  * The parser accepts at most DXL2_MAX_PACKET_SIZE wire bytes, 10 of which are
  * header, ID, Length, instruction and CRC, and unstuffing only removes bytes,
  * so the decoded parameters always fit in DXL2_MAX_PARAMETER_SIZE.
+ *
+ * The body is unstuffed in place: the write position never passes the read
+ * position (one byte read gives one byte, four bytes FF FF FD FD give three),
+ * and the bytes of a stuffing sequence are read before any of them is written.
  */
-static int dxl2_decode_packet(const struct dxl2_parser* parser, struct dxl2_packet* packet,
+static int dxl2_decode_packet(struct dxl2_parser* parser, struct dxl2_packet* packet,
                               size_t total_length)
 {
     const size_t crc_offset = total_length - DXL2_CRC_SIZE;
@@ -101,12 +107,7 @@ static int dxl2_decode_packet(const struct dxl2_parser* parser, struct dxl2_pack
     const uint16_t received_crc = dxl2_get_u16(&parser->buffer[crc_offset]);
     bool valid = (expected_crc == received_crc);
     size_t offset = DXL2_BODY_OFFSET;
-    size_t body_length = 0U; /* Unstuffed instruction and parameter bytes. */
-
-    if (valid)
-    {
-        packet->id = parser->buffer[4];
-    }
+    size_t body_end = DXL2_BODY_OFFSET; /* End of the unstuffed instruction and parameters. */
 
     while (valid && (offset < crc_offset))
     {
@@ -137,21 +138,17 @@ static int dxl2_decode_packet(const struct dxl2_parser* parser, struct dxl2_pack
 
         for (size_t i = 0U; i < decoded_count; ++i)
         {
-            if (body_length == 0U)
-            {
-                packet->instruction = decoded[i];
-            }
-            else
-            {
-                packet->parameters[body_length - 1U] = decoded[i];
-            }
-            body_length++;
+            parser->buffer[body_end] = decoded[i];
+            body_end++;
         }
     }
 
     if (valid)
     {
-        packet->parameter_length = (uint16_t) (body_length - 1U);
+        packet->id = parser->buffer[4];
+        packet->instruction = parser->buffer[DXL2_BODY_OFFSET];
+        packet->parameter_length = (uint16_t) (body_end - (DXL2_BODY_OFFSET + 1U));
+        packet->parameters = &parser->buffer[DXL2_BODY_OFFSET + 1U];
     }
 
     return valid ? 1 : DXL2_PARSE_ERROR;

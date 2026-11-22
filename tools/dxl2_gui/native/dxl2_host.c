@@ -63,6 +63,7 @@ static int host_write_bytes(void* context, const uint8_t* data, size_t length)
 static void host_handle_packet(const struct dxl2_packet* packet, void* context)
 {
     struct dxl2_host* host = (struct dxl2_host*) context;
+    struct dxl2_host_packet* entry;
 
     if (host->count == DXL2_HOST_RX_QUEUE)
     {
@@ -71,7 +72,15 @@ static void host_handle_packet(const struct dxl2_packet* packet, void* context)
         host->dropped++;
     }
 
-    host->queue[(host->head + host->count) % DXL2_HOST_RX_QUEUE] = *packet;
+    /* The parameters point into the parser buffer: keep a copy of them. */
+    entry = &host->queue[(host->head + host->count) % DXL2_HOST_RX_QUEUE];
+    entry->id = packet->id;
+    entry->instruction = packet->instruction;
+    entry->parameter_length = packet->parameter_length;
+    if (packet->parameter_length > 0U)
+    {
+        memcpy(entry->parameters, packet->parameters, packet->parameter_length);
+    }
     host->count++;
 }
 
@@ -149,7 +158,7 @@ size_t dxl2_host_receive(struct dxl2_host* host, const uint8_t* data, size_t len
 int dxl2_host_take(struct dxl2_host* host, uint8_t* id, uint8_t* instruction, uint8_t* parameters,
                    size_t capacity)
 {
-    const struct dxl2_packet* packet;
+    const struct dxl2_host_packet* packet;
     size_t length;
 
     if (host == NULL || id == NULL || instruction == NULL || host->count == 0U)

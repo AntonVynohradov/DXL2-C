@@ -60,8 +60,10 @@ in progress in `struct dxl2_parser`:
    bytes that may never come.
 4. **Wait.** Until `7 + Length` bytes are present, the parser returns `0`.
 5. **Validate and decode.** The CRC is checked over the stuffed bytes, exactly as they
-   were sent. Then byte stuffing is removed while the instruction and parameters are
-   copied into `struct dxl2_packet`. A header sequence without its stuffing byte is a
+   were sent. Then byte stuffing is removed in place, in the parser buffer: the write
+   position never passes the read position, so no second buffer is needed.
+   `struct dxl2_packet` receives the ID, the instruction and a pointer to the
+   parameters in that buffer. A header sequence without its stuffing byte is a
    malformed packet.
 6. **Reset.** After a packet — valid or not — the parser buffer is emptied and the next
    byte starts a new search.
@@ -95,8 +97,8 @@ your own objects:
 | Structure | Contents | Size with the default configuration |
 | --- | --- | --- |
 | `struct dxl2_parser` | bytes of the packet in progress, their count | 256 bytes + `size_t` |
-| `struct dxl2_packet` | ID, instruction, parameter count, unstuffed parameters | 250 bytes |
-| `struct dxl2_link` | configuration, one parser, the last packet, two counters | ≈ 550 bytes on a 32-bit MCU |
+| `struct dxl2_packet` | ID, instruction, parameter count, pointer to the parameters in the parser buffer | 8 bytes on a 32-bit MCU, 16 on a 64-bit host |
+| `struct dxl2_link` | configuration, one parser, the last packet, two counters | 292 bytes on a 32-bit MCU |
 
 The library has no global variables except one read-only table (the header bytes), never
 calls `malloc()`, and allocates only fixed-size buffers on the stack: one packet buffer in
