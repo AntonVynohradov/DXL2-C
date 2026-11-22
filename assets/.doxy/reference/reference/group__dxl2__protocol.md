@@ -219,7 +219,7 @@ int dxl2_parser_feed (
 
 
 
-The parser searches for the Protocol 2.0 header, waits for the declared packet length, validates CRC, then removes byte stuffing. Continue feeding bytes after a parse error so the parser can find the next packet header.
+The parser searches for the Protocol 2.0 header, waits for the declared packet length, validates CRC, then removes byte stuffing in place, in its own buffer. Continue feeding bytes after a parse error so the parser can find the next packet header.
 
 
 
@@ -229,7 +229,7 @@ The parser searches for the Protocol 2.0 header, waits for the declared packet l
 
 * `parser` Parser state. 
 * `byte` Next byte from the input stream. 
-* `packet` Output packet; its contents are valid only when the call returns 1. 
+* `packet` Output packet; its contents are valid only when the call returns 1, and its parameters only until the next call with `parser`. 
 
 
 

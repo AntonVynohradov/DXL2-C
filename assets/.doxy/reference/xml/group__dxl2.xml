@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="group__dxl2" kind="group">
     <compoundname>dxl2</compoundname>
     <title>DXL2 API</title>
@@ -13,7 +13,7 @@
 </description>
       <memberdef kind="define" id="group__dxl2_1ga8fc58296463290d52cedadb1f61d899f" prot="public" static="no">
         <name>DXL2_VERSION_MAJOR</name>
-        <initializer>1</initializer>
+        <initializer>2</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -46,7 +46,7 @@
       </memberdef>
       <memberdef kind="define" id="group__dxl2_1gad246a7468d3367af2a1bcb858a977faf" prot="public" static="no">
         <name>DXL2_VERSION</name>
-        <initializer>&quot;1.0.0&quot;</initializer>
+        <initializer>&quot;2.0.0&quot;</initializer>
         <briefdescription>
 <para>Version string &quot;MAJOR.MINOR.PATCH&quot;. </para>
         </briefdescription>
@@ -61,6 +61,7 @@
 <para>Public API of the DYNAMIXEL Protocol 2.0 library. </para>
     </briefdescription>
     <detaileddescription>
+<para>Public API of the DYNAMIXEL Protocol 2.0 library.</para>
 <para>This module groups the public interface and its supporting submodules: <ref refid="group__dxl2__config" kindref="compound">Configuration</ref>, <ref refid="group__dxl2__defs" kindref="compound">Definitions</ref>, <ref refid="group__dxl2__protocol" kindref="compound">Codec</ref> and <ref refid="group__dxl2__link" kindref="compound">Link</ref>.</para>
 <para>Include this single header to use the library: <itemizedlist>
 <listitem><para><ref refid="dxl2__config_8h" kindref="compound">dxl2_config.h</ref> build-time configuration (buffer sizes) </para>

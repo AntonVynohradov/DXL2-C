@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
   <compounddef id="dxl2__defs_8h" kind="file" language="C++">
     <compoundname>dxl2_defs.h</compoundname>
     <includes local="no">stdint.h</includes>
@@ -84,14 +84,18 @@
 <para><simplesect kind="copyright"><para>Copyright (c) 2026 Anton Vynohradov @license Apache License 2.0</para>
 </simplesect>
 Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use this file except in compliance with the License. You may obtain a copy of the License at <verbatim>http://www.apache.org/licenses/LICENSE-2.0
-</verbatim> Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</para>
+</verbatim></para>
+<para>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</para>
 <para>SPDX-License-Identifier: Apache-2.0 </para>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"></codeline>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DXL2_DEFS_H</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_DEFS_H</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
@@ -99,9 +103,13 @@ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you ma
 <codeline lineno="47"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56" refid="group__dxl2__defs_1ga98062b2c3cbf258bcc71f3e5ab0b4b39" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_MAX_ID<sp/>252U</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="group__dxl2__defs_1ga98062b2c3cbf258bcc71f3e5ab0b4b39" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_MAX_ID<sp/>252U</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="58" refid="group__dxl2__defs_1ga2596087b0db6ca41f177a1f377c79f6f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_BROADCAST_ID<sp/>0xFEU</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
 <codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_PING<sp/>0x01U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_READ<sp/>0x02U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_WRITE<sp/>0x03U</highlight><highlight class="normal"></highlight></codeline>
@@ -110,7 +118,7 @@ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you ma
 <codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_FACTORY_RESET<sp/>0x06U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_REBOOT<sp/>0x08U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_CLEAR<sp/>0x10U</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_BACKUP<sp/>0x20U</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_BACKUP<sp/>0x20U</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="75" refid="group__dxl2__defs_1ga1164177c2dc599437253c84e2e6b44ae" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_STATUS<sp/>0x55U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_SYNC_READ<sp/>0x82U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_SYNC_WRITE<sp/>0x83U</highlight><highlight class="normal"></highlight></codeline>
@@ -119,6 +127,8 @@ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you ma
 <codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_BULK_WRITE<sp/>0x93U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_INST_FAST_BULK_READ<sp/>0x9AU</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_ERR_NONE<sp/>0x00U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_ERR_RESULT_FAIL<sp/>0x01U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_ERR_INSTRUCTION<sp/>0x02U</highlight><highlight class="normal"></highlight></codeline>
@@ -126,9 +136,11 @@ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you ma
 <codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_ERR_DATA_RANGE<sp/>0x04U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_ERR_DATA_LENGTH<sp/>0x05U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_ERR_DATA_LIMIT<sp/>0x06U</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_ERR_ACCESS<sp/>0x07U</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_ERR_ACCESS<sp/>0x07U</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="100" refid="group__dxl2__defs_1gac2c008fa18121ec07cc5cc4ab695860e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DXL2_ERR_ALERT_BIT<sp/>0x80U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
 <codeline lineno="112" refid="group__dxl2__defs_1ga55574c9de62299816310adbc622d31b7" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint16_t<sp/><ref refid="group__dxl2__defs_1ga55574c9de62299816310adbc622d31b7" kindref="member">dxl2_get_u16</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t*<sp/>data)</highlight></codeline>
 <codeline lineno="113"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(uint16_t)<sp/>((uint16_t)<sp/>data[0]<sp/>|<sp/>((uint16_t)<sp/>data[1]<sp/>&lt;&lt;<sp/>8));</highlight></codeline>
@@ -154,6 +166,7 @@ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you ma
 <codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>data[3]<sp/>=<sp/>(uint8_t)<sp/>(value<sp/>&gt;&gt;<sp/>24);</highlight></codeline>
 <codeline lineno="138"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
 <codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="143"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>

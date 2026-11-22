@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.8" xml:lang="en-US">
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.15.0" xml:lang="en-US">
   <compound refid="structdxl2__link" kind="struct"><name>dxl2_link</name>
     <member refid="structdxl2__link_1adaf8d06ec0b3a838b09963876b5a55b1" kind="variable"><name>config</name></member>
     <member refid="structdxl2__link_1a1b531e6aa955c777e41d035ca0e4dc7e" kind="variable"><name>parser</name></member>
@@ -17,7 +17,7 @@
     <member refid="structdxl2__packet_1a8dabcc8a048479a5630e153eb7f26e84" kind="variable"><name>id</name></member>
     <member refid="structdxl2__packet_1a949ee642de0b9d15927b265256445aff" kind="variable"><name>instruction</name></member>
     <member refid="structdxl2__packet_1a11cb6cde86a1a303f0917e3aa434e77b" kind="variable"><name>parameter_length</name></member>
-    <member refid="structdxl2__packet_1a43c434f279dc493a73bcd1d8607bf9df" kind="variable"><name>parameters</name></member>
+    <member refid="structdxl2__packet_1a248bc6ced7a9ad9ad4150981a7096c15" kind="variable"><name>parameters</name></member>
   </compound>
   <compound refid="structdxl2__parser" kind="struct"><name>dxl2_parser</name>
     <member refid="structdxl2__parser_1abaf389058b250ee8611702865fda49b9" kind="variable"><name>buffer</name></member>
@@ -99,7 +99,7 @@
     <member refid="dxl2__protocol_8c_1a09432a5a42ded6b0b471d42a82e73984" kind="define"><name>DXL2_CRC_SIZE</name></member>
     <member refid="dxl2__protocol_8c_1a0df9945c2350b8c271396610dfb75fe1" kind="variable"><name>dxl2_header</name></member>
     <member refid="dxl2__protocol_8c_1a499bc80f5a510a17f62fca1927a1b198" kind="function"><name>dxl2_parser_reset</name></member>
-    <member refid="dxl2__protocol_8c_1a1112afbee967d2865e067b231ebcc4c4" kind="function"><name>dxl2_decode_packet</name></member>
+    <member refid="dxl2__protocol_8c_1a3b40066dc5699ed6315dcf29035dfb67" kind="function"><name>dxl2_decode_packet</name></member>
     <member refid="group__dxl2__protocol_1gaa4decaae4fb141106641431bcc78ecd3" kind="function"><name>dxl2_crc16</name></member>
     <member refid="group__dxl2__protocol_1ga2d741ee63032e718403940097699ab55" kind="function"><name>dxl2_parser_init</name></member>
     <member refid="group__dxl2__protocol_1ga6de3bf6f32879dad192cb8c37772eaf9" kind="function"><name>dxl2_parser_feed</name></member>

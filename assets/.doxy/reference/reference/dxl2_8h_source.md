@@ -9,16 +9,21 @@
 
 ```C++
 
+
+
 #ifndef DXL2_H
 #define DXL2_H
+
 
 #include "dxl2_config.h"
 #include "dxl2_defs.h"
 #include "dxl2_protocol.h"
 #include "dxl2_link.h"
 
+
+
 #ifndef DXL2_VERSION_MAJOR
-#define DXL2_VERSION_MAJOR 1
+#define DXL2_VERSION_MAJOR 2
 #endif
 
 #ifndef DXL2_VERSION_MINOR
@@ -30,8 +35,9 @@
 #endif
 
 #ifndef DXL2_VERSION
-#define DXL2_VERSION "1.0.0"
+#define DXL2_VERSION "2.0.0"
 #endif
+
 
 #endif /* DXL2_H */
 

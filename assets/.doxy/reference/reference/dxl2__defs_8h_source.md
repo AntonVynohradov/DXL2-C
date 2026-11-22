@@ -9,8 +9,11 @@
 
 ```C++
 
+
+
 #ifndef DXL2_DEFS_H
 #define DXL2_DEFS_H
+
 
 #include <stdint.h>
 
@@ -19,8 +22,12 @@ extern "C"
 {
 #endif
 
+
+
 #define DXL2_MAX_ID 252U
 #define DXL2_BROADCAST_ID 0xFEU
+
+
 
 #define DXL2_INST_PING 0x01U
 #define DXL2_INST_READ 0x02U
@@ -39,6 +46,8 @@ extern "C"
 #define DXL2_INST_BULK_WRITE 0x93U
 #define DXL2_INST_FAST_BULK_READ 0x9AU
 
+
+
 #define DXL2_ERR_NONE 0x00U
 #define DXL2_ERR_RESULT_FAIL 0x01U
 #define DXL2_ERR_INSTRUCTION 0x02U
@@ -48,6 +57,8 @@ extern "C"
 #define DXL2_ERR_DATA_LIMIT 0x06U
 #define DXL2_ERR_ACCESS 0x07U
 #define DXL2_ERR_ALERT_BIT 0x80U
+
+
 
 static inline uint16_t dxl2_get_u16(const uint8_t* data)
 {
@@ -73,6 +84,7 @@ static inline void dxl2_put_u32(uint8_t* data, uint32_t value)
     data[2] = (uint8_t) ((value >> 16) & 0xFFU);
     data[3] = (uint8_t) (value >> 24);
 }
+
 
 #ifdef __cplusplus
 }

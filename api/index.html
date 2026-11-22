@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/images/brand/systemfromscratch-logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -2021,14 +2021,14 @@ under <em>Reference → Doxygen</em>.</p>
 <thead>
 <tr>
 <th>Macro</th>
-<th>Value in 1.0.0</th>
+<th>Value in 2.0.0</th>
 <th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>DXL2_VERSION_MAJOR</code></td>
-<td><code>1</code></td>
+<td><code>2</code></td>
 <td>Incompatible API changes</td>
 </tr>
 <tr>
@@ -2043,7 +2043,7 @@ under <em>Reference → Doxygen</em>.</p>
 </tr>
 <tr>
 <td><code>DXL2_VERSION</code></td>
-<td><code>"1.0.0"</code></td>
+<td><code>"2.0.0"</code></td>
 <td>Version string</td>
 </tr>
 </tbody>
@@ -2250,14 +2250,18 @@ helpers do not check it, like <code>memcpy()</code>.</p>
 <p>One decoded packet, with byte stuffing removed.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">dxl2_packet</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">{</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">                                  </span><span class="cm">/* source or destination ID */</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">instruction</span><span class="p">;</span><span class="w">                         </span><span class="cm">/* instruction, 0x55 for Status */</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">parameter_length</span><span class="p">;</span><span class="w">                   </span><span class="cm">/* number of valid bytes in parameters */</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">parameters</span><span class="p">[</span><span class="n">DXL2_MAX_PARAMETER_SIZE</span><span class="p">];</span><span class="w"> </span><span class="cm">/* unstuffed parameters */</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">                </span><span class="cm">/* source or destination ID */</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">instruction</span><span class="p">;</span><span class="w">       </span><span class="cm">/* instruction, 0x55 for Status */</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">parameter_length</span><span class="p">;</span><span class="w"> </span><span class="cm">/* number of valid bytes in parameters */</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">parameters</span><span class="p">;</span><span class="w"> </span><span class="cm">/* unstuffed parameters, in the parser buffer */</span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">};</span>
 </code></pre></div>
 <p>For a Status Packet, <code>parameters[0]</code> is the error byte and the data follows from
 <code>parameters[1]</code>.</p>
+<p>The parameters are not copied: the parser removes the byte stuffing in place, and
+<code>parameters</code> points into the buffer of the parser that decoded the packet. They stay
+valid until the next <code>dxl2_parser_feed()</code> or <code>dxl2_parser_init()</code> with that parser.
+To keep a packet longer, copy its bytes, not the structure.</p>
 <h3 id="struct-dxl2_parser"><code>struct dxl2_parser</code><a class="headerlink" href="#struct-dxl2_parser" title="Permanent link">&para;</a></h3>
 <p>State of the incremental parser for one byte stream. Treat the members as private.
 Initialize it with <code>dxl2_parser_init()</code> before use.</p>
@@ -2300,7 +2304,7 @@ ignored.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">dxl2_parser_feed</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">dxl2_parser</span><span class="o">*</span><span class="w"> </span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">dxl2_packet</span><span class="o">*</span><span class="w"> </span><span class="n">packet</span><span class="p">);</span>
 </code></pre></div>
 <p>Feeds one byte to the parser. The parser searches for the header, checks the Length
-field, waits for the complete packet, validates the CRC and removes byte stuffing. Keep
+field, waits for the complete packet, validates the CRC and removes byte stuffing in its own buffer. Keep
 feeding bytes after an error: the parser resynchronizes on the next header.</p>
 <table>
 <thead>
@@ -2320,7 +2324,7 @@ feeding bytes after an error: the parser resynchronizes on the next header.</p>
 </tr>
 <tr>
 <td><code>packet</code></td>
-<td>Output packet; its contents are valid only when the call returns <code>1</code></td>
+<td>Output packet; its contents are valid only when the call returns <code>1</code>, its parameters only until the next call with <code>parser</code></td>
 </tr>
 </tbody>
 </table>

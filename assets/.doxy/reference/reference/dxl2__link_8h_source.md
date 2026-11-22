@@ -9,8 +9,11 @@
 
 ```C++
 
+
+
 #ifndef DXL2_LINK_H
 #define DXL2_LINK_H
+
 
 #include <stddef.h>
 #include <stdint.h>
@@ -21,6 +24,8 @@
 extern "C"
 {
 #endif
+
+
 
 typedef int (*dxl2_write_fn)(void* context, const uint8_t* data, size_t length);
 
@@ -43,6 +48,8 @@ struct dxl2_link
     uint32_t invalid_packets;       
 };
 
+
+
 int dxl2_link_init(struct dxl2_link* link, const struct dxl2_link_config* config);
 
 void dxl2_link_receive(struct dxl2_link* link, const uint8_t* data, size_t length);
@@ -56,6 +63,7 @@ int dxl2_link_send_status(struct dxl2_link* link, uint8_t id, uint8_t error, con
 uint32_t dxl2_link_rx_packets(const struct dxl2_link* link);
 
 uint32_t dxl2_link_invalid_packets(const struct dxl2_link* link);
+
 
 #ifdef __cplusplus
 }

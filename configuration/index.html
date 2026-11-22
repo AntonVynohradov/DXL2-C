@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/images/brand/systemfromscratch-logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -1472,7 +1472,7 @@ file:</p>
 </tbody>
 </table>
 <h2 id="memory-footprint">Memory footprint<a class="headerlink" href="#memory-footprint" title="Permanent link">&para;</a></h2>
-<p><code>DXL2_MAX_PACKET_SIZE</code> sizes three buffers:</p>
+<p><code>DXL2_MAX_PACKET_SIZE</code> sizes one buffer in RAM and two on the stack of the transmit functions:</p>
 <table>
 <thead>
 <tr>
@@ -1487,7 +1487,7 @@ file:</p>
 </tr>
 <tr>
 <td><code>struct dxl2_packet</code></td>
-<td><code>DXL2_MAX_PARAMETER_SIZE</code> + 4 bytes</td>
+<td>4 bytes + a pointer: the parameters stay in the parser buffer</td>
 </tr>
 <tr>
 <td><code>struct dxl2_link</code></td>

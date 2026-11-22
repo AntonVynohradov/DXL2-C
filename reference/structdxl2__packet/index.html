@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../assets/images/brand/systemfromscratch-logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -1421,13 +1421,14 @@
 <td style="text-align: left;"><a href="#variable-parameter_length"><strong>parameter_length</strong></a>  <br><em>Number of valid bytes in parameters.</em></td>
 </tr>
 <tr>
-<td style="text-align: right;">uint8_t</td>
-<td style="text-align: left;"><a href="#variable-parameters"><strong>parameters</strong></a>  <br><em>Unstuffed parameter bytes.</em></td>
+<td style="text-align: right;">const uint8_t *</td>
+<td style="text-align: left;"><a href="#variable-parameters"><strong>parameters</strong></a>  <br><em>Unstuffed parameter bytes, in the parser buffer.</em></td>
 </tr>
 </tbody>
 </table>
 <h2 id="detailed-description">Detailed Description<a class="headerlink" href="#detailed-description" title="Permanent link">&para;</a></h2>
-<p>Byte stuffing has been removed from <code>parameters</code>. For a Status Packet (instruction 0x55), the status error byte is the first parameter. </p>
+<p>Byte stuffing has been removed from <code>parameters</code>. For a Status Packet (instruction 0x55), the status error byte is the first parameter.</p>
+<p>The parameters are not copied: the parser removes the byte stuffing in place, and <code>parameters</code> points into the buffer of the parser that decoded the packet. They stay valid until the next call of <a href="../group__dxl2__protocol/#function-dxl2_parser_feed"><strong>dxl2_parser_feed()</strong></a> or <a href="../group__dxl2__protocol/#function-dxl2_parser_init"><strong>dxl2_parser_init()</strong></a> with that parser. Copy the bytes to keep them longer, not the structure. </p>
 <h2 id="public-attributes-documentation">Public Attributes Documentation<a class="headerlink" href="#public-attributes-documentation" title="Permanent link">&para;</a></h2>
 <h3 id="variable-id">variable id<a class="headerlink" href="#variable-id" title="Permanent link">&para;</a></h3>
 <p><em>Packet source/destination ID.</em> 
@@ -1448,8 +1449,8 @@
 <hr>
 
 <h3 id="variable-parameters">variable parameters<a class="headerlink" href="#variable-parameters" title="Permanent link">&para;</a></h3>
-<p><em>Unstuffed parameter bytes.</em> 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">dxl2_packet</span><span class="o">::</span><span class="n">parameters</span><span class="p">[</span><span class="n">DXL2_MAX_PARAMETER_SIZE</span><span class="p">];</span>
+<p><em>Unstuffed parameter bytes, in the parser buffer.</em> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">dxl2_packet</span><span class="o">::</span><span class="n">parameters</span><span class="p">;</span>
 </code></pre></div></p>
 <hr>
 

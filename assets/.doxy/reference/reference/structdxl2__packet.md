@@ -39,7 +39,7 @@ _One decoded Protocol 2.0 packet._ [More...](#detailed-description)
 |  uint8\_t | [**id**](#variable-id)  <br>_Packet source/destination ID._  |
 |  uint8\_t | [**instruction**](#variable-instruction)  <br>_Instruction byte, 0x55 for Status._  |
 |  uint16\_t | [**parameter\_length**](#variable-parameter_length)  <br>_Number of valid bytes in parameters._  |
-|  uint8\_t | [**parameters**](#variable-parameters)  <br>_Unstuffed parameter bytes._  |
+|  const uint8\_t \* | [**parameters**](#variable-parameters)  <br>_Unstuffed parameter bytes, in the parser buffer._  |
 
 
 
@@ -87,7 +87,10 @@ _One decoded Protocol 2.0 packet._ [More...](#detailed-description)
 ## Detailed Description
 
 
-Byte stuffing has been removed from `parameters`. For a Status Packet (instruction 0x55), the status error byte is the first parameter. 
+Byte stuffing has been removed from `parameters`. For a Status Packet (instruction 0x55), the status error byte is the first parameter.
+
+
+The parameters are not copied: the parser removes the byte stuffing in place, and `parameters` points into the buffer of the parser that decoded the packet. They stay valid until the next call of [**dxl2\_parser\_feed()**](group__dxl2__protocol.md#function-dxl2_parser_feed) or [**dxl2\_parser\_init()**](group__dxl2__protocol.md#function-dxl2_parser_init) with that parser. Copy the bytes to keep them longer, not the structure. 
 
 
     
@@ -140,9 +143,9 @@ uint16_t dxl2_packet::parameter_length;
 
 ### variable parameters 
 
-_Unstuffed parameter bytes._ 
+_Unstuffed parameter bytes, in the parser buffer._ 
 ```C++
-uint8_t dxl2_packet::parameters[DXL2_MAX_PARAMETER_SIZE];
+const uint8_t* dxl2_packet::parameters;
 ```
 
 

@@ -86,12 +86,15 @@ _Public API of the DYNAMIXEL Protocol 2.0 library._ [More...](#detailed-descript
 
 | Type | Name |
 | ---: | :--- |
-| define  | [**DXL2\_VERSION**](group__dxl2.md#define-dxl2_version)  `"1.0.0"`<br>_Version string "MAJOR.MINOR.PATCH"._  |
-| define  | [**DXL2\_VERSION\_MAJOR**](group__dxl2.md#define-dxl2_version_major)  `1`<br> |
+| define  | [**DXL2\_VERSION**](group__dxl2.md#define-dxl2_version)  `"2.0.0"`<br>_Version string "MAJOR.MINOR.PATCH"._  |
+| define  | [**DXL2\_VERSION\_MAJOR**](group__dxl2.md#define-dxl2_version_major)  `2`<br> |
 | define  | [**DXL2\_VERSION\_MINOR**](group__dxl2.md#define-dxl2_version_minor)  `0`<br> |
 | define  | [**DXL2\_VERSION\_PATCH**](group__dxl2.md#define-dxl2_version_patch)  `0`<br> |
 
 ## Detailed Description
+
+
+Public API of the DYNAMIXEL Protocol 2.0 library.
 
 
 This module groups the public interface and its supporting submodules: [**Configuration**](group__dxl2__config.md), [**Definitions**](group__dxl2__defs.md), [**Codec**](group__dxl2__protocol.md) and [**Link**](group__dxl2__link.md).
@@ -117,7 +120,7 @@ Include this single header to use the library:
 
 _Version string "MAJOR.MINOR.PATCH"._ 
 ```
-#define DXL2_VERSION `"1.0.0"`
+#define DXL2_VERSION `"2.0.0"`
 ```
 
 
@@ -130,7 +133,7 @@ _Version string "MAJOR.MINOR.PATCH"._
 ### define DXL2\_VERSION\_MAJOR 
 
 ```
-#define DXL2_VERSION_MAJOR `1`
+#define DXL2_VERSION_MAJOR `2`
 ```
 
 

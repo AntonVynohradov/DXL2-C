@@ -9,8 +9,12 @@
 
 ```C++
 
+
+
+
 #ifndef DXL2_CONFIG_H
 #define DXL2_CONFIG_H
+
 
 #ifndef DXL2_MAX_PACKET_SIZE
 #define DXL2_MAX_PACKET_SIZE 256U
@@ -23,6 +27,7 @@
 #if (DXL2_MAX_PACKET_SIZE < 10U) || (DXL2_MAX_PACKET_SIZE > 65542U)
 #error "DXL2_MAX_PACKET_SIZE must be in the range 10..65542"
 #endif
+
 
 #endif /* DXL2_CONFIG_H */
 

@@ -62,7 +62,7 @@
 
 | Type | Name |
 | ---: | :--- |
-|  int | [**dxl2\_decode\_packet**](#function-dxl2_decode_packet) (const struct [**dxl2\_parser**](structdxl2__parser.md) \* parser, struct [**dxl2\_packet**](structdxl2__packet.md) \* packet, size\_t total\_length) <br>_Validate CRC and decode a complete wire packet._  |
+|  int | [**dxl2\_decode\_packet**](#function-dxl2_decode_packet) (struct [**dxl2\_parser**](structdxl2__parser.md) \* parser, struct [**dxl2\_packet**](structdxl2__packet.md) \* packet, size\_t total\_length) <br>_Validate CRC and decode a complete wire packet in place._  |
 |  void | [**dxl2\_parser\_reset**](#function-dxl2_parser_reset) (struct [**dxl2\_parser**](structdxl2__parser.md) \* parser) <br>_Discard the parser's current partial packet._  |
 
 
@@ -122,10 +122,10 @@ const uint8_t dxl2_header[DXL2_HEADER_SIZE];
 
 ### function dxl2\_decode\_packet 
 
-_Validate CRC and decode a complete wire packet._ 
+_Validate CRC and decode a complete wire packet in place._ 
 ```C++
 static int dxl2_decode_packet (
-    const struct dxl2_parser * parser,
+    struct dxl2_parser * parser,
     struct dxl2_packet * packet,
     size_t total_length
 ) 
@@ -138,8 +138,8 @@ static int dxl2_decode_packet (
 **Parameters:**
 
 
-* `parser` - Parser containing the complete wire packet 
-* `packet` - Receives the decoded packet on success 
+* `parser` - Parser containing the complete wire packet; the body is unstuffed in its buffer 
+* `packet` - Receives the decoded packet on success; its parameters point into the parser buffer 
 * `total_length` - Complete wire-packet length, including header and CRC 
 
 
