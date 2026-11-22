@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/SystemFromScratch/SystemFromScratch.github.io/main/tools/site.schema.json
+#
+# Card of this repository on https://systemfromscratch.com/projects.html
+# The website reads this file from the tag of the latest release, so a change
+# made here appears on the website with the next release.
+# Version, Stable/Pre-release and the release link come from GitHub Releases;
+# featured, home page section and card order are set by the website.
+# Format: docs/library-integration.md in SystemFromScratch/SystemFromScratch.github.io
+
+title: "DXL2-C"
+
+summary: >-
+  ROBOTIS DYNAMIXEL Protocol 2.0 wire format in portable C — for building your own
+  DYNAMIXEL-compatible actuators or controlling servos from any MCU, without a heap or
+  an RTOS.
+
+# Shown on the Projects page only (max. 8).
+features:
+  - "CRC-16, byte stuffing and an incremental parser that resynchronises after line noise"
+  - "Every instruction and status error code of the specification; ROBOTIS packets as regression vectors"
+  - "100 % line and branch coverage, C/Python cross-check, 0 Cppcheck MISRA C:2012 violations"
+  - "DXL2 Studio GUI for simulation and serial-port debugging; bare-metal, Zephyr and PC examples"
+
+# Up to three measured numbers.
+highlights:
+  - { value: "100 %", label: "branch coverage" }
+  - { value: "0", label: "MISRA violations" }
+  - { value: "0 B", label: "heap" }
+
+# Filters on the Projects page.
+categories: ["Libraries", "Robotics"]
+
+tags: ["C11", "DYNAMIXEL", "Robotics", "Zephyr", "MISRA C:2012", "Apache-2.0"]
+
+# Built-in illustration: robot, container, can, chip, bus, stepper, scope,
+# halfbridge, servo, planner. Or a photo from this repository instead:
+# image: docs/assets/card.webp
+art: chip
+
+links:
+  docs: https://antonvynohradov.github.io/DXL2-C/
+  manual: https://antonvynohradov.github.io/DXL2-C/downloads/DXL2-C_User_Manual.pdf
